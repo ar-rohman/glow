@@ -1,6 +1,6 @@
 <template>
-    <form>
-        <div class="relative text-gray-400 focus-within:text-gray-600">
+    <form method="post">
+        <div class="relative text-gray-300 focus-within:text-gray-700">
             <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                 <div class="p-1 focus:outline-none focus:shadow-outline">
                     <svg fill="none" stroke="currentColor" stroke-linecap="round"
@@ -10,11 +10,11 @@
                     </svg>
                 </div>
             </span>
-            <input type="text" name="q" placeholder="Search..."
+            <input type="text" placeholder="Search city..." id="search"
                 class="appearance-none border border-gray-300 w-full py-2 px-10 text-gray-300
-                placeholder-gray-400 shadow-sm rounded-md text-base focus:outline-none focus:ring-2
-                focus:ring-blue-700 focus:border-transparent focus:text-gray-900" autocomplete="off"
-                @keyup="isEmpty" v-model="searchInput" @keyup.enter="submitSearch">
+                placeholder-gray-400 shadow-sm rounded-lg text-base focus:outline-none focus:ring-2
+                focus:ring-blue-700 focus:border-transparent focus:text-gray-700" autocomplete="off"
+                v-model="searchInput" @keydown.enter="submitSearch" @keyup="isEmpty" >
             <span class="absolute inset-y-0 right-0 flex items-center px-2"
                 v-if="showClearSign">
                 <button
@@ -37,6 +37,7 @@ export default {
         return {
             showClearSign: false,
             searchInput: '',
+            searchResult: [],
         };
     },
     methods: {
@@ -50,6 +51,34 @@ export default {
         },
         submitSearch(event) {
             event.preventDefault();
+            if (this.searchInput.length > 0) {
+                this.$router.push({
+                    path: '/search',
+                    query: {
+                        q: this.searchInput,
+                    },
+                })
+                    // to catch if url is current location
+                    // https://stackoverflow.com/questions/57837758/navigationduplicated-navigating-to-current-location-search-is-not-allowed
+                    .catch(() => {});
+                this.searchInput = '';
+                event.target.blur();
+                this.showClearSign = false;
+            }
+            // if (this.searchInput.length > 0) {
+            //     this.axios.get(`?q=${this.searchInput}&appid=${process.env.VUE_APP_API_KEY}`)
+            //         .then((response) => {
+            //             const { data } = response.data;
+            //             this.searchResult = data;
+            //             console.log(response);
+            //         })
+            //         .catch((error) => {
+            //             console.log(error);
+            //         });
+            // } else {
+            //     console.log('response');
+            // }
+            //
         },
     },
 };
