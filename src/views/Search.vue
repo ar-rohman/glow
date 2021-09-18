@@ -1,118 +1,131 @@
 <template>
-    <div class="text-gray-700">
-        <div class="mb-4">
-            <p class="text-lg font-bold">
-                Weather forecast for {{ weatherData.name }}, {{ weatherData.sys.country}}
-            </p>
-            <p class="text-sm">
-                {{ dateFormat(weatherData.dt).longDate }}
-            </p>
+    <div>
+        <div v-if="isError">
+            <error-page v-bind="errorData" />
         </div>
-        <div class="bg-white">
-            <div class="flex flex-col sm:flex-row gap-y-10 sm:gap-x-10 mb-10">
-                <div class="px-6 py-4 shadow-md border
-                    border-gray-100 overflow-hidden rounded-lg w-full sm:w-1/2">
-                    <div class="flex justify-between">
-                        <p>{{ weatherData.name }}</p>
-                        <p>{{ weatherData.weather[0].main }}</p>
-                    </div>
-                    <div class="flex flex-col justify-center w-full">
-                        <div class="flex justify-center">
-                            <img :src="`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`"
-                                :alt="`${weatherData.weather[0].description}`" width="100">
-                        </div>
-                        <div class="mt-2 flex justify-center">
-                            <p>{{ toTitleCase(weatherData.weather[0].description) }}</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-between mt-10">
-                        <div>
-                            <p>Real Feel</p>
-                            <p class="text-2xl tracking-tighter">
-                                {{ weatherData.main.feels_like.toFixed() }}&deg;
-                            </p>
-                        </div>
-                        <div class="text-6xl tracking-tighter">
-                            <p>{{ weatherData.main.temp.toFixed() }}&deg;</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="px-6 py-4 shadow-md border
-                    border-gray-100 overflow-hidden rounded-lg w-full sm:w-1/2">
-                    <div class="flex justify-between mb-3">
-                        <div>
-                            <p class="text-gray-400 text-xs">Pressure</p>
-                            <p>{{ weatherData.main.pressure }} hPa</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-gray-400 text-xs">Wind Speed</p>
-                            <p>{{ weatherData.wind.speed }} m/s</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-between mb-3">
-                        <div>
-                            <p class="text-gray-400 text-xs">Humidity</p>
-                            <p>{{ weatherData.main.humidity }}%</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-gray-400 text-xs">Cloudiness</p>
-                            <p>{{ weatherData.clouds.all }}%</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-between mb-3">
-                        <div>
-                            <p class="text-gray-400 text-xs">Visibility</p>
-                            <p>{{ weatherData.visibility }} m</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-gray-400 text-xs">Timezone</p>
-                            <p>{{ timezone(weatherData.timezone) }}</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-between mb-3">
-                        <div>
-                            <p class="text-gray-400 text-xs">Sunrise</p>
-                            <p>{{ dateFormat(weatherData.sys.sunrise).time }}</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-gray-400 text-xs">Sunset </p>
-                            <p>{{ dateFormat(weatherData.sys.sunset).time }}</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-between">
-                        <div>
-                            <p class="text-gray-400 text-xs">Latitude</p>
-                            <p>{{ weatherData.coord.lat }}</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-gray-400 text-xs">Longitude</p>
-                            <p>{{ weatherData.coord.lon }}</p>
-                        </div>
-                    </div>
-                </div>
+        <div class="text-gray-700" v-else>
+            <div class="mb-4">
+                <p class="text-lg font-bold">
+                    Weather forecast for {{ weatherData.name }}, {{ weatherData.sys.country }}
+                </p>
+                <p class="text-sm">
+                    {{ dateFormat(weatherData.dt).longDate }}
+                </p>
             </div>
-            <div class="px-6 py-4 shadow-md border
-                    border-gray-100 overflow-hidden rounded-lg w-full">
-                    <p>aaa</p>
-                    <p>aaa</p>
-                    <p>aaa</p>
-                    <p>aaa</p>
-                    <p>aaa</p>
+            <div class="bg-white">
+                <div class="flex flex-col sm:flex-row gap-y-10 sm:gap-x-10 mb-10">
+                    <div class="px-6 py-4 shadow-md border
+                        border-gray-100 overflow-hidden rounded-lg w-full sm:w-1/2">
+                        <div class="flex justify-between">
+                            <p>{{ weatherData.name }}</p>
+                            <p>{{ weatherData.weather[0].main }}</p>
+                        </div>
+                        <div class="flex flex-col justify-center w-full">
+                            <div class="flex justify-center">
+                                <img :src="`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`"
+                                    :alt="`${weatherData.weather[0].description}`" width="100">
+                            </div>
+                            <div class="mt-2 flex justify-center">
+                                <p>{{ toTitleCase(weatherData.weather[0].description) }}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mt-10">
+                            <div>
+                                <p>Real Feel</p>
+                                <p class="text-2xl tracking-tighter">
+                                    {{ weatherData.main.feels_like.toFixed() }}&deg;
+                                </p>
+                            </div>
+                            <div class="text-6xl tracking-tighter">
+                                <p>{{ weatherData.main.temp.toFixed() }}&deg;</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 shadow-md border
+                        border-gray-100 overflow-hidden rounded-lg w-full sm:w-1/2">
+                        <div class="flex justify-between mb-3">
+                            <div>
+                                <p class="text-gray-400 text-xs">Pressure</p>
+                                <p>{{ weatherData.main.pressure }} hPa</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-400 text-xs">Wind Speed</p>
+                                <p>{{ weatherData.wind.speed }} m/s</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mb-3">
+                            <div>
+                                <p class="text-gray-400 text-xs">Humidity</p>
+                                <p>{{ weatherData.main.humidity }}%</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-400 text-xs">Cloudiness</p>
+                                <p>{{ weatherData.clouds.all }}%</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mb-3">
+                            <div>
+                                <p class="text-gray-400 text-xs">Visibility</p>
+                                <p>{{ weatherData.visibility }} m</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-400 text-xs">Timezone</p>
+                                <p>{{ timezone(weatherData.timezone) }}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mb-3">
+                            <div>
+                                <p class="text-gray-400 text-xs">Sunrise</p>
+                                <p>{{ dateFormat(weatherData.sys.sunrise).time }}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-400 text-xs">Sunset </p>
+                                <p>{{ dateFormat(weatherData.sys.sunset).time }}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-400 text-xs">Latitude</p>
+                                <p>{{ weatherData.coord.lat }}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-400 text-xs">Longitude</p>
+                                <p>{{ weatherData.coord.lon }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-        </div>
+                <div class="px-6 py-4 shadow-md border
+                        border-gray-100 overflow-hidden rounded-lg w-full">
+                        <p>aaa</p>
+                        <p>aaa</p>
+                        <p>aaa</p>
+                        <p>aaa</p>
+                        <p>aaa</p>
+                    </div>
+            </div>
 
-        <p class="mt-10"></p>
-        <pre>{{ weatherData }}</pre>
+            <p class="mt-10"></p>
+            <p>{{ !!weatherData }}</p>
+            <pre>{{ weatherData }}</pre>
+        </div>
     </div>
 </template>
 
 <script>
+import ErrorPage from '@/components/ErrorPage.vue';
+
 export default {
     name: 'Search',
+    components: {
+        ErrorPage,
+    },
     data() {
         return {
             keyword: '',
             weatherData: {},
+            isError: true,
+            errorData: {},
             // currentTime: '',
         };
     },
@@ -125,27 +138,34 @@ export default {
         '$route.query.q': {
             handler(value) {
                 if (this.keyword !== value) {
-                    this.keyword = value;
+                    if (value !== '') {
+                        this.keyword = value;
+                        this.getData();
+                    }
                 }
-                this.getData();
             },
             // deep: true,
             // immediate: true,
         },
     },
     methods: {
-        getData() {
-            this.axios.get(`?q=${this.keyword}&appid=${process.env.VUE_APP_API_KEY}&units=metric`)
+        async getData() {
+            await this.axios.get(`?q=${this.keyword}&appid=${process.env.VUE_APP_API_KEY}&units=metric`)
                 .then((response) => {
                     const { data } = response;
                     this.weatherData = data;
+                    this.isError = false;
                 })
                 .catch((error) => {
                     this.weatherData = {};
-                    console.log(error.response.data);
+                    this.isError = true;
                     const { data } = error.response;
-                    if (data.cod === 404) {
-                        //
+                    if (data.cod === '404') {
+                        this.errorData = {
+                            code: 404,
+                            error: 'Not Found',
+                            message: `Sorry, We can't found city with ${this.keyword} keyword, please try another keywords.`,
+                        };
                     }
                 });
         },
@@ -158,7 +178,7 @@ export default {
             const month = splitDate[1];
             const date = splitDate[2];
             const year = splitDate[3];
-            const time = splitDate[4]; // .slice(0, -3);
+            const time = splitDate[4].slice(0, -3);
             const tz = fullDate.getTimezoneOffset();
             const timezone = this.timezone(tz * (-60));
             return {
