@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="isError">
-            <error-page v-bind="errorData" />
+            <ErrorPage v-bind="errorData" />
         </div>
         <div class="text-gray-700" v-else>
             <div class="mb-4">
@@ -162,8 +162,7 @@ export default {
                     const { data } = error.response;
                     if (data.cod === '404') {
                         this.errorData = {
-                            code: 404,
-                            error: 'Not Found',
+                            cod: 404,
                             message: `Sorry, We can't found city with ${this.keyword} keyword, please try another keywords.`,
                         };
                     }
@@ -190,7 +189,7 @@ export default {
         },
         timezone(timezone) {
             const tz = timezone / 3600;
-            return tz > 0 ? `UTC +${tz}` : `UTC ${tz}`;
+            return tz > 0 ? `UTC+${tz}` : `UTC${tz}`;
         },
         toTitleCase(string) {
             return string.replace(

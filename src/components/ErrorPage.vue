@@ -10,11 +10,11 @@
                 </svg>
             </div>
             <div class="text-2xl ml-4 font-bold">
-                <p>{{ code }} {{ error }}</p>
+                <p>{{ errorCode }} {{ errorType }}</p>
             </div>
         </div>
         <div class="mt-4 max-w-sm text-center">
-            {{ message }}
+            {{ errorMessage }}
         </div>
     </div>
 </template>
@@ -23,17 +23,61 @@
 export default {
     name: 'ErrorPage',
     props: {
-        code: {
-            type: String,
-            default: '404',
-        },
-        error: {
-            type: String,
-            default: 'Not Found',
+        cod: {
+            type: Number,
         },
         message: {
             type: String,
-            default: 'Sorry the page not found, the link you followed probably broken or the page has been removed.',
+        },
+    },
+    data() {
+        return {
+            errorCode: '',
+            errorType: '',
+            errorMessage: '',
+        };
+    },
+    created() {
+        this.httpStatus();
+    },
+    watch: {
+        cod: {
+            handler: 'httpStatus',
+            immediate: true,
+        },
+        message: {
+            handler: 'httpStatus',
+            immediate: true,
+        },
+    },
+    methods: {
+        httpStatus() {
+            this.errorCode = this.cod;
+            if (Number(this.cod) === 401) {
+                this.errorType = 'Unauthorized';
+                this.errorMessage = 'Sorry, your request could not be processed';
+            } else if (Number(this.cod) === 404) {
+                this.errorType = 'Not Found';
+                this.errorMessage = this.message;
+            } else if (Number(this.cod) === 429) {
+                this.errorType = 'Too Many Requests';
+                this.errorMessage = 'Sorry, we have recieved too many requests and reached our limit, please try again in one minute.';
+            } else if (Number(this.cod) === 500) {
+                this.errorType = 'Internal Server Error';
+                this.errorMessage = this.message;
+            } else if (Number(this.cod) === 502) {
+                this.errorType = 'Bad Gateway';
+                this.errorMessage = this.message;
+            } else if (Number(this.cod) === 503) {
+                this.errorType = 'Service Unavailable';
+                this.errorMessage = this.message;
+            } else if (Number(this.cod) === 504) {
+                this.errorType = 'Gateway Timeout';
+                this.errorMessage = this.message;
+            } else {
+                this.errorType = 'Unknown Error';
+                this.errorMessage = this.message;
+            }
         },
     },
 };
