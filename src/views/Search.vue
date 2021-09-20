@@ -1,9 +1,12 @@
 <template>
     <div>
+        <div v-if="isLoadnig">
+            <HomeSkeleton />
+        </div>
         <div v-if="isError">
             <ErrorPage v-bind="errorData" />
         </div>
-        <div class="text-gray-700" v-else>
+        <div class="text-gray-700" v-if="weatherData">
             <div class="mb-4">
                 <p class="text-lg font-bold">
                     Weather forecast for {{ weatherData.name }}, {{ weatherData.sys.country }}
@@ -95,44 +98,33 @@
                         </div>
                     </div>
                 </div>
-                <div class="px-6 py-4 shadow-md border
-                        border-gray-100 overflow-hidden rounded-lg w-full">
-                        <p>aaa</p>
-                        <p>aaa</p>
-                        <p>aaa</p>
-                        <p>aaa</p>
-                        <p>aaa</p>
-                    </div>
             </div>
-
-            <p class="mt-10"></p>
-            <p>{{ !!weatherData }}</p>
-            <pre>{{ weatherData }}</pre>
         </div>
     </div>
 </template>
 
 <script>
 import ErrorPage from '@/components/ErrorPage.vue';
+import HomeSkeleton from '@/components/skeleton/HomeSkeleton.vue';
 
 export default {
     name: 'Search',
     components: {
         ErrorPage,
+        HomeSkeleton,
     },
     data() {
         return {
-            keyword: '',
-            weatherData: {},
-            isError: true,
-            errorData: {},
-            // currentTime: '',
+            keyword: null,
+            isLoadnig: true,
+            isError: false,
+            weatherData: null,
+            errorData: null,
         };
     },
     created() {
         this.keyword = this.$route.query.q;
         this.getData();
-        // setInterval(this.getCurrentTime, 1000);
     },
     watch: {
         '$route.query.q': {
@@ -155,10 +147,12 @@ export default {
                     const { data } = response;
                     this.weatherData = data;
                     this.isError = false;
+                    this.isLoadnig = false;
                 })
                 .catch((error) => {
-                    this.weatherData = {};
+                    this.weatherData = null;
                     this.isError = true;
+                    this.isLoadnig = false;
                     const { data } = error.response;
                     if (data.cod === '404') {
                         this.errorData = {
@@ -197,13 +191,6 @@ export default {
                 (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
             );
         },
-        // getCurrentTime() {
-        //     const today = new Date();
-        //     const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-        //     const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
-        //     const dateTime = `${date} ${time}`;
-        //     this.currentTime = dateTime;
-        // },
     },
 };
 </script>
