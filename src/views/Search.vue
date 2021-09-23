@@ -6,7 +6,7 @@
         <div v-if="isError">
             <ErrorPage v-bind="errorData" />
         </div>
-        <div class="text-gray-700" v-if="weatherData">
+        <div v-if="weatherData">
             <div class="mb-4">
                 <p class="text-lg font-bold">
                     Weather forecast for {{ weatherData.name }}, {{ weatherData.sys.country }}
@@ -14,6 +14,18 @@
                 <p class="text-sm">
                     {{ dateFormat(weatherData.dt).longDate }}
                 </p>
+            </div>
+            <div class="flex justify-between mb-1">
+                <div class="s">ADD</div>
+                <div class="flex text-blue-500 hover:text-blue-700 text-sm cursor-pointer"
+                    @click="moreDetail">
+                    <p>More details</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586
+                            10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1
+                            0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    </div>
             </div>
             <div class="bg-white">
                 <div class="flex flex-col sm:flex-row gap-y-10 sm:gap-x-10 mb-10">
@@ -24,9 +36,10 @@
                             <p>{{ weatherData.weather[0].main }}</p>
                         </div>
                         <div class="flex flex-col justify-center w-full">
-                            <div class="flex justify-center">
+                            <div class="flex justify-center h-24">
                                 <img :src="`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`"
-                                    :alt="`${weatherData.weather[0].description}`" width="100">
+                                    :alt="`${weatherData.weather[0].description}`"
+                                    class="h-24 w-24">
                             </div>
                             <div class="mt-2 flex justify-center">
                                 <p>{{ toTitleCase(weatherData.weather[0].description) }}</p>
@@ -142,7 +155,7 @@ export default {
     },
     methods: {
         async getData() {
-            await this.axios.get(`?q=${this.keyword}&appid=${process.env.VUE_APP_API_KEY}&units=metric`)
+            await this.axios.get(`weather?q=${this.keyword}&appid=${process.env.VUE_APP_API_KEY}&units=metric`)
                 .then((response) => {
                     const { data } = response;
                     this.weatherData = data;
@@ -190,6 +203,15 @@ export default {
                 /\w\S*/g,
                 (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
             );
+        },
+        moreDetail() {
+            this.$router.push({
+                path: '/detail',
+                query: {
+                    lat: this.weatherData.coord.lat,
+                    lon: this.weatherData.coord.lon,
+                },
+            });
         },
     },
 };

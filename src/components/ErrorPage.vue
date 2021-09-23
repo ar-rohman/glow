@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col justify-center items-center h-screen -my-20 text-gray-700">
+    <div class="flex flex-col justify-center items-center h-screen -my-20">
         <div class="flex items-center">
             <div class="bg-red-200 rounded-full p-3 text-red-500">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"

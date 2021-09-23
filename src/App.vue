@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="font-sans">
+  <div id="app" class="font-sans text-gray-700">
       <AppHeader />
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
