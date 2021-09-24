@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="mt-4 max-w-sm text-center">
-            {{ errorMessage }}
+            {{ errorMessage | ucfirst }}
         </div>
     </div>
 </template>
@@ -22,14 +22,7 @@
 <script>
 export default {
     name: 'ErrorPage',
-    props: {
-        cod: {
-            type: Number,
-        },
-        message: {
-            type: String,
-        },
-    },
+    props: ['cod', 'message'],
     data() {
         return {
             errorCode: '',
@@ -53,7 +46,10 @@ export default {
     methods: {
         httpStatus() {
             this.errorCode = this.cod;
-            if (Number(this.cod) === 401) {
+            if (Number(this.cod) === 400) {
+                this.errorType = 'Bad Request';
+                this.errorMessage = 'There was a problem with your request';
+            } else if (Number(this.cod) === 401) {
                 this.errorType = 'Unauthorized';
                 this.errorMessage = 'Sorry, your request could not be processed';
             } else if (Number(this.cod) === 404) {
