@@ -15,6 +15,7 @@ module.exports = {
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         indent: ['error', 4],
         'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+        'no-param-reassign': 0,
         // 'import/no-unresolved': 'off',
         // 'global-require': 0,
     },

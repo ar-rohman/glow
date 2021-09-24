@@ -9,7 +9,7 @@
         <div v-if="weatherData">
             <div class="mb-4">
                 <p class="text-lg font-bold">
-                    Weather forecast for
+                    Weather forecast for {{ timezone(weatherData.timezone_offset) }}
                 </p>
                 <p class="text-sm">
                    sss3
@@ -32,16 +32,18 @@
                         overflow-hidden rounded-lg min-w-min"
                         v-for="hourly in weatherData.hourly" :key="hourly.dt">
                         <div class="flex flex-col items-center space-y-4 w-44">
-                            <div class="flex  justify-between whitespace-nowrap w-full">
-                                <p>{{ dateFormat(hourly.dt).day }}</p>
-                                <p>{{ dateFormat(hourly.dt).time }}</p>
+                            <div class="flex justify-between whitespace-nowrap w-full text-sm">
+                                <p>{{ shortDate(hourly.dt) }}</p>
+                                <p>{{ time(hourly.dt) }}</p>
                             </div>
                             <div class="flex justify-center h-24">
                                 <img :src="`http://openweathermap.org/img/wn/${hourly.weather[0].icon}@2x.png`"
                                 class="h-24 w-24"
                                 :alt="`${hourly.weather[0].description}`" />
                             </div>
-                            <div>{{ toTitleCase(hourly.weather[0].description) }}</div>
+                            <div  class="text-center">
+                                {{ hourly.weather[0].description | titleCase }}
+                            </div>
                             <div class="flex justify-between w-full">
                                 <div class="text-4xl tracking-tighter">
                                     {{ hourly.temp.toFixed() }}&deg;
@@ -54,7 +56,7 @@
                             <div class="flex justify-between w-full">
                                 <div class="flex flex-col">
                                     <div class="text-xs text-gray-500">Wind Speed</div>
-                                    <div>{{ hourly.wind_speed }}m/s</div>
+                                    <div>{{ kmph(hourly.wind_speed) }}</div>
                                 </div>
                                 <div class="flex flex-col">
                                     <div class="text-xs text-gray-500">Humidity</div>
@@ -83,14 +85,16 @@
                         v-for="daily in weatherData.daily" :key="daily.dt">
                         <div class="flex flex-col items-center space-y-4">
                             <div class="whitespace-nowrap">
-                                {{ dateFormat(daily.dt).day }}
+                                {{ threeLetterDay(daily.dt) }}
                             </div>
                             <div class="flex justify-center h-24">
                                 <img :src="`http://openweathermap.org/img/wn/${daily.weather[0].icon}@2x.png`"
                                 class="h-24 w-24"
                                 :alt="`${daily.weather[0].description}`" />
                             </div>
-                            <div>{{ toTitleCase(daily.weather[0].description) }}</div>
+                            <div class="text-center">
+                                {{ daily.weather[0].description | titleCase }}
+                            </div>
                             <div class="flex justify-between items-end w-full">
                                 <div class="text-2xl tracking-tighter">
                                     {{ daily.temp.max.toFixed() }}&deg;
@@ -104,6 +108,7 @@
                 </horizontal-scroll>
             </div>
         </div>
+        <!-- <pre>{{ weatherData }}</pre> -->
     </div>
 </template>
 
@@ -136,7 +141,8 @@ export default {
     },
     methods: {
         async getData() {
-            await this.axios.get(`onecall?lat=${this.latitude}&lon=${this.longitude}&exclude=current,minutely,alerts&appid=${process.env.VUE_APP_API_KEY}&units=metric`)
+            await this.axios
+                .get(`onecall?lat=${this.latitude}&lon=${this.longitude}&exclude=current,minutely,alerts&appid=${process.env.VUE_APP_API_KEY}&units=metric`)
                 .then((response) => {
                     const { data } = response;
                     this.weatherData = data;
@@ -155,35 +161,6 @@ export default {
                         };
                     }
                 });
-        },
-        dateFormat(timestamp) {
-            const df = timestamp * 1000;
-            const fullDate = new Date(df);
-            const longDateString = fullDate.toString();
-            const splitDate = longDateString.split(' ');
-            const day = splitDate[0];
-            const month = splitDate[1];
-            const date = splitDate[2];
-            const year = splitDate[3];
-            const time = splitDate[4].slice(0, -3);
-            const tz = fullDate.getTimezoneOffset();
-            const timezone = this.timezone(tz * (-60));
-            return {
-                longDate: `${day}, ${date} ${month} ${year} ${time} ${timezone}`,
-                day: `${day}, ${date} ${month} ${year}`,
-                time,
-                timezone,
-            };
-        },
-        timezone(timezone) {
-            const tz = timezone / 3600;
-            return tz > 0 ? `UTC+${tz}` : `UTC${tz}`;
-        },
-        toTitleCase(string) {
-            return string.replace(
-                /\w\S*/g,
-                (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
-            );
         },
     },
 };

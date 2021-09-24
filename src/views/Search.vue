@@ -12,7 +12,7 @@
                     Weather forecast for {{ weatherData.name }}, {{ weatherData.sys.country }}
                 </p>
                 <p class="text-sm">
-                    {{ dateFormat(weatherData.dt).longDate }}
+                    {{ longFullDate(weatherData.dt) }}
                 </p>
             </div>
             <div class="flex justify-between mb-1">
@@ -41,8 +41,8 @@
                                     :alt="`${weatherData.weather[0].description}`"
                                     class="h-24 w-24">
                             </div>
-                            <div class="mt-2 flex justify-center">
-                                <p>{{ toTitleCase(weatherData.weather[0].description) }}</p>
+                            <div class="mt-2 flex justify-center text-center">
+                                <p>{{ weatherData.weather[0].description | titleCase }}</p>
                             </div>
                         </div>
                         <div class="flex justify-between mt-10">
@@ -66,7 +66,7 @@
                             </div>
                             <div class="text-right">
                                 <p class="text-gray-400 text-xs">Wind Speed</p>
-                                <p>{{ weatherData.wind.speed }} m/s</p>
+                                <p>{{ kmph(weatherData.wind.speed) }}</p>
                             </div>
                         </div>
                         <div class="flex justify-between mb-3">
@@ -82,7 +82,7 @@
                         <div class="flex justify-between mb-3">
                             <div>
                                 <p class="text-gray-400 text-xs">Visibility</p>
-                                <p>{{ weatherData.visibility }} m</p>
+                                <p>{{ mtokm(weatherData.visibility) }}</p>
                             </div>
                             <div class="text-right">
                                 <p class="text-gray-400 text-xs">Timezone</p>
@@ -92,11 +92,11 @@
                         <div class="flex justify-between mb-3">
                             <div>
                                 <p class="text-gray-400 text-xs">Sunrise</p>
-                                <p>{{ dateFormat(weatherData.sys.sunrise).time }}</p>
+                                <p>{{ time(weatherData.sys.sunrise) }}</p>
                             </div>
                             <div class="text-right">
                                 <p class="text-gray-400 text-xs">Sunset </p>
-                                <p>{{ dateFormat(weatherData.sys.sunset).time }}</p>
+                                <p>{{ time(weatherData.sys.sunset) }}</p>
                             </div>
                         </div>
                         <div class="flex justify-between">
@@ -175,35 +175,35 @@ export default {
                     }
                 });
         },
-        dateFormat(timestamp) {
-            const df = timestamp * 1000;
-            const fullDate = new Date(df);
-            const longDateString = fullDate.toString();
-            const splitDate = longDateString.split(' ');
-            const day = splitDate[0];
-            const month = splitDate[1];
-            const date = splitDate[2];
-            const year = splitDate[3];
-            const time = splitDate[4].slice(0, -3);
-            const tz = fullDate.getTimezoneOffset();
-            const timezone = this.timezone(tz * (-60));
-            return {
-                longDate: `${day}, ${date} ${month} ${year} ${time} ${timezone}`,
-                day: `${day}, ${date} ${month} ${year}`,
-                time,
-                timezone,
-            };
-        },
-        timezone(timezone) {
-            const tz = timezone / 3600;
-            return tz > 0 ? `UTC+${tz}` : `UTC${tz}`;
-        },
-        toTitleCase(string) {
-            return string.replace(
-                /\w\S*/g,
-                (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
-            );
-        },
+        // dateFormat(timestamp) {
+        //     const df = timestamp * 1000;
+        //     const fullDate = new Date(df);
+        //     const longDateString = fullDate.toString();
+        //     const splitDate = longDateString.split(' ');
+        //     const day = splitDate[0];
+        //     const month = splitDate[1];
+        //     const date = splitDate[2];
+        //     const year = splitDate[3];
+        //     const time = splitDate[4].slice(0, -3);
+        //     const tz = fullDate.getTimezoneOffset();
+        //     const timezone = this.timezone(tz * (-60));
+        //     return {
+        //         longDate: `${day}, ${date} ${month} ${year} ${time} ${timezone}`,
+        //         day: `${day}, ${date} ${month} ${year}`,
+        //         time,
+        //         timezone,
+        //     };
+        // },
+        // timezone(timezone) {
+        //     const tz = timezone / 3600;
+        //     return tz > 0 ? `UTC+${tz}` : `UTC${tz}`;
+        // },
+        // toTitleCase(string) {
+        //     return string.replace(
+        //         /\w\S*/g,
+        //         (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
+        //     );
+        // },
         moreDetail() {
             this.$router.push({
                 path: '/detail',
