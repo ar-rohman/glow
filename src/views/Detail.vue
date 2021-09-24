@@ -9,10 +9,10 @@
         <div v-if="weatherData">
             <div class="mb-4">
                 <p class="text-lg font-bold">
-                    Weather forecast for {{ timezone(weatherData.timezone_offset) }}
+                    Weather forecast for {{ city | titleCase }}
                 </p>
-                <p class="text-sm">
-                   sss3
+                <p class="text-xs">
+                   Last updated {{ longFullDate(timestamp) }}
                 </p>
             </div>
             <div class="bg-white mb-8">
@@ -108,11 +108,11 @@
                 </horizontal-scroll>
             </div>
         </div>
-        <!-- <pre>{{ weatherData }}</pre> -->
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import ErrorPage from '@/components/ErrorPage.vue';
 import DetailSkeleton from '@/components/skeleton/DetailSkeleton.vue';
 import HorizontalScroll from '@/components/HorizontalScroll.vue';
@@ -126,8 +126,6 @@ export default {
     },
     data() {
         return {
-            latitude: null,
-            longitude: null,
             isLoadnig: true,
             isError: false,
             weatherData: null,
@@ -135,9 +133,15 @@ export default {
         };
     },
     created() {
-        this.latitude = this.$route.query.lat;
-        this.longitude = this.$route.query.lon;
         this.getData();
+    },
+    computed: {
+        ...mapGetters({
+            latitude: 'location/lat',
+            longitude: 'location/lon',
+            city: 'city',
+            timestamp: 'timestamp',
+        }),
     },
     methods: {
         async getData() {
@@ -157,8 +161,10 @@ export default {
                     if (data.cod === '404') {
                         this.errorData = {
                             cod: 404,
-                            message: 'Sorry, We can\'t found city with $this.keyword keyword, please try another keywords.',
+                            message: `Sorry, We can't found city with ${this.keyword} keyword, please try another keywords.`,
                         };
+                    } else {
+                        this.errorData = data;
                     }
                 });
         },

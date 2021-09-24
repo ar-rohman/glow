@@ -117,6 +117,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import ErrorPage from '@/components/ErrorPage.vue';
 import HomeSkeleton from '@/components/skeleton/HomeSkeleton.vue';
 
@@ -172,46 +173,24 @@ export default {
                             cod: 404,
                             message: `Sorry, We can't found city with ${this.keyword} keyword, please try another keywords.`,
                         };
+                    } else {
+                        this.errorData = data;
                     }
                 });
         },
-        // dateFormat(timestamp) {
-        //     const df = timestamp * 1000;
-        //     const fullDate = new Date(df);
-        //     const longDateString = fullDate.toString();
-        //     const splitDate = longDateString.split(' ');
-        //     const day = splitDate[0];
-        //     const month = splitDate[1];
-        //     const date = splitDate[2];
-        //     const year = splitDate[3];
-        //     const time = splitDate[4].slice(0, -3);
-        //     const tz = fullDate.getTimezoneOffset();
-        //     const timezone = this.timezone(tz * (-60));
-        //     return {
-        //         longDate: `${day}, ${date} ${month} ${year} ${time} ${timezone}`,
-        //         day: `${day}, ${date} ${month} ${year}`,
-        //         time,
-        //         timezone,
-        //     };
-        // },
-        // timezone(timezone) {
-        //     const tz = timezone / 3600;
-        //     return tz > 0 ? `UTC+${tz}` : `UTC${tz}`;
-        // },
-        // toTitleCase(string) {
-        //     return string.replace(
-        //         /\w\S*/g,
-        //         (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
-        //     );
-        // },
+        ...mapActions({
+            setCity: 'setCity',
+            setLocation: 'location/set',
+            setDate: 'setDate',
+        }),
         moreDetail() {
-            this.$router.push({
-                path: '/detail',
-                query: {
-                    lat: this.weatherData.coord.lat,
-                    lon: this.weatherData.coord.lon,
-                },
+            this.setLocation({
+                lat: this.weatherData.coord.lat,
+                lon: this.weatherData.coord.lon,
             });
+            this.setCity(this.keyword);
+            this.setDate(this.weatherData.dt);
+            this.$router.push('/detail');
         },
     },
 };
