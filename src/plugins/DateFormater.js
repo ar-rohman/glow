@@ -10,10 +10,11 @@ const DateFormater = {
             const date = (`0${fullDate.getDate()}`).slice(-2);
             const month = months[fullDate.getMonth()];
             const year = fullDate.getFullYear();
+            const time = Vue.prototype.time(timestamp);
             const tzOffset = fullDate.getTimezoneOffset();
             const tz = (tzOffset * (-60)) / 3600;
             const timezone = tz > 0 ? `UTC+${tz}` : `UTC${tz}`;
-            return `${day}, ${date} ${month} ${year} ${timezone}`;
+            return `${day}, ${date} ${month} ${year} ${time} ${timezone}`;
         };
         Vue.prototype.threeLetterDay = (timestamp) => {
             const df = timestamp * 1000;
