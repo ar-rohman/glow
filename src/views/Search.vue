@@ -33,7 +33,7 @@
                         border-gray-100 overflow-hidden rounded-lg w-full sm:w-1/2">
                         <div class="flex justify-between">
                             <p>{{ weatherData.name }}</p>
-                            <p>{{ weatherData.weather[0].main }}</p>
+                            <p>{{ adjective(weatherData.weather[0].main) }}</p>
                         </div>
                         <div class="flex flex-col justify-center w-full">
                             <div class="flex justify-center h-24">
@@ -171,7 +171,7 @@ export default {
                     if (data.cod === '404') {
                         this.errorData = {
                             cod: 404,
-                            message: `Sorry, We can't found city with ${this.keyword} keyword, please try another keywords.`,
+                            message: `Sorry, we can't found city with keyword "${this.keyword}" , please try another keywords.`,
                         };
                     } else {
                         this.errorData = data;

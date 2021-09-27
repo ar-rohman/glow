@@ -18,8 +18,9 @@
             <div class="bg-white mb-8">
                 <div class="flex justify-between mb-1">
                     <div class="font-bold">Hourly</div>
-                    <div class="flex text-blue-500 hover:text-blue-700 text-sm cursor-pointer">
-                        <p>See all</p>
+                    <div class="flex text-blue-500 hover:text-blue-700 text-sm cursor-pointer"
+                        @click="hourlyDetail">
+                        <p>More details</p>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586
                                 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1
@@ -49,17 +50,17 @@
                                     {{ hourly.temp.toFixed() }}&deg;
                                 </div>
                                 <div class="flex flex-col">
-                                    <div class="text-xs text-gray-500">Real Feel</div>
+                                    <div class="text-xs text-gray-400">Real Feel</div>
                                     <div>{{ hourly.feels_like.toFixed() }}&deg;</div>
                                 </div>
                             </div>
                             <div class="flex justify-between w-full">
                                 <div class="flex flex-col">
-                                    <div class="text-xs text-gray-500">Wind Speed</div>
+                                    <div class="text-xs text-gray-400">Wind Speed</div>
                                     <div>{{ kmph(hourly.wind_speed) }}</div>
                                 </div>
                                 <div class="flex flex-col">
-                                    <div class="text-xs text-gray-500">Humidity</div>
+                                    <div class="text-xs text-gray-400">Humidity</div>
                                     <div>{{ hourly.humidity }}%</div>
                                 </div>
                             </div>
@@ -70,8 +71,9 @@
             <div class="bg-white">
                 <div class="flex justify-between mb-1">
                     <div class="font-bold">Daily</div>
-                    <div class="flex text-blue-500 hover:text-blue-700 text-sm cursor-pointer">
-                        <p>See all</p>
+                    <div class="flex text-blue-500 hover:text-blue-700 text-sm cursor-pointer"
+                        @click="dailyDetail">
+                        <p>More details</p>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586
                                 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1
@@ -112,7 +114,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import ErrorPage from '@/components/ErrorPage.vue';
 import DetailSkeleton from '@/components/skeleton/DetailSkeleton.vue';
 import HorizontalScroll from '@/components/HorizontalScroll.vue';
@@ -161,12 +163,24 @@ export default {
                     if (data.cod === '404') {
                         this.errorData = {
                             cod: 404,
-                            message: `Sorry, We can't found city with ${this.keyword} keyword, please try another keywords.`,
+                            message: `Sorry, we can't found city with keyword "${this.keyword}", please try another keywords.`,
                         };
                     } else {
                         this.errorData = data;
                     }
                 });
+        },
+        ...mapActions({
+            setHourly: 'weather/setHourly',
+            setDaily: 'weather/setDaily',
+        }),
+        hourlyDetail() {
+            this.setHourly(this.weatherData.hourly);
+            this.$router.push('/hourly');
+        },
+        dailyDetail() {
+            this.setDaily(this.weatherData.daily);
+            this.$router.push('/daily');
         },
     },
 };

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Home from '@/views/Home.vue';
 
 Vue.use(VueRouter);
 
@@ -32,6 +32,16 @@ const routes = [
         path: '/detail',
         name: 'Detail',
         component: () => import(/* webpackChunkName: "detail" */ '@/views/Detail.vue'),
+    },
+    {
+        path: '/hourly',
+        name: 'Hourly',
+        component: () => import(/* webpackChunkName: "hourly" */ '@/views/Hourly.vue'),
+    },
+    {
+        path: '/daily',
+        name: 'Daily',
+        component: () => import(/* webpackChunkName: "daily" */ '@/views/Daily.vue'),
     },
 ];
 
