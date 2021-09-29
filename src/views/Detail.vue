@@ -83,7 +83,7 @@
                 </div>
                 <horizontal-scroll reference="dailyWeather">
                     <div class="px-6 py-4 shadow-md border border-gray-100
-                        overflow-hidden rounded-lg"
+                        overflow-hidden rounded-lg min-w-min"
                         v-for="daily in weatherData.daily" :key="daily.dt">
                         <div class="flex flex-col items-center space-y-4">
                             <div class="whitespace-nowrap">

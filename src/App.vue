@@ -15,8 +15,10 @@
                 </button>
             </div>
         </div>
-        <div class="mx-10" :class="[showAppHeader ? 'my-20' : 'mt-14 mb-4']">
-            <router-view/>
+        <div class="mx-auto max-w-screen-lg">
+            <div class="mx-10" :class="[showAppHeader ? 'my-20 sm:mb-4' : 'mt-14 mb-4']">
+                <router-view/>
+            </div>
         </div>
     </div>
 </template>

@@ -1,22 +1,181 @@
 <template>
-  <div class="w-full">
-    <img alt="Vue logo" src="../assets/logo.png">
-
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio quos possimus
-        quas optio assumenda necessitatibus, harum qui. Repellat distinctio saepe temporibus
-        accusamus hic officia totam non dolor incidunt. Odit, praesentium.</p>
-  </div>
+    <div>
+        <div v-if="isLoadnig">
+            <HomeSkeleton />
+        </div>
+        <div v-if="isError">
+            <ErrorPage v-bind="errorData" />
+        </div>
+        <div v-if="weatherData">
+            <div class="mb-4">
+                <p class="text-lg font-bold">
+                    Current weather forecast
+                </p>
+                <p class="text-sm">
+                    Last updated {{ longFullDate(weatherData.dt) }}
+                </p>
+            </div>
+            <div class="flex justify-end mb-1">
+                <div class="flex text-blue-500 hover:text-blue-700 text-sm cursor-pointer"
+                    @click="moreDetail">
+                    <p>More details</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586
+                            10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1
+                            0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    </div>
+            </div>
+            <div class="bg-white">
+                <div class="flex flex-col sm:flex-row gap-y-10 sm:gap-x-10 mb-10">
+                    <div class="px-6 py-4 shadow-md border
+                        border-gray-100 overflow-hidden rounded-lg w-full sm:w-1/2">
+                        <div class="flex justify-between">
+                            <p>{{ weatherData.name }}</p>
+                            <p>{{ adjective(weatherData.weather[0].main) }}</p>
+                        </div>
+                        <div class="flex flex-col justify-center w-full">
+                            <div class="flex justify-center h-24">
+                                <img :src="`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`"
+                                    :alt="`${weatherData.weather[0].description}`"
+                                    class="h-24 w-24">
+                            </div>
+                            <div class="mt-2 flex justify-center text-center">
+                                <p>{{ weatherData.weather[0].description | titleCase }}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mt-10">
+                            <div>
+                                <p>Real Feel</p>
+                                <p class="text-2xl tracking-tighter">
+                                    {{ weatherData.main.feels_like.toFixed() }}&deg;
+                                </p>
+                            </div>
+                            <div class="text-6xl tracking-tighter">
+                                <p>{{ weatherData.main.temp.toFixed() }}&deg;</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 shadow-md border
+                        border-gray-100 overflow-hidden rounded-lg w-full sm:w-1/2">
+                        <div class="flex justify-between mb-3">
+                            <div>
+                                <p class="text-gray-400 text-xs">Pressure</p>
+                                <p>{{ weatherData.main.pressure }} hPa</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-400 text-xs">Wind Speed</p>
+                                <p>{{ kmph(weatherData.wind.speed) }}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mb-3">
+                            <div>
+                                <p class="text-gray-400 text-xs">Humidity</p>
+                                <p>{{ weatherData.main.humidity }}%</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-400 text-xs">Cloudiness</p>
+                                <p>{{ weatherData.clouds.all }}%</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mb-3">
+                            <div>
+                                <p class="text-gray-400 text-xs">Visibility</p>
+                                <p>{{ mtokm(weatherData.visibility) }}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-400 text-xs">Timezone</p>
+                                <p>{{ timezone(weatherData.timezone) }}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mb-3">
+                            <div>
+                                <p class="text-gray-400 text-xs">Sunrise</p>
+                                <p>{{ time(weatherData.sys.sunrise) }}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-400 text-xs">Sunset </p>
+                                <p>{{ time(weatherData.sys.sunset) }}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-400 text-xs">Latitude</p>
+                                <p>{{ weatherData.coord.lat }}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-gray-400 text-xs">Longitude</p>
+                                <p>{{ weatherData.coord.lon }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import { mapActions } from 'vuex';
+import ErrorPage from '@/components/ErrorPage.vue';
+import HomeSkeleton from '@/components/skeleton/HomeSkeleton.vue';
 
 export default {
-    name: 'Home',
+    name: 'Search',
     components: {
-        HelloWorld,
+        ErrorPage,
+        HomeSkeleton,
+    },
+    data() {
+        return {
+            keyword: 'jakarta',
+            isLoadnig: true,
+            isError: false,
+            weatherData: null,
+            errorData: null,
+        };
+    },
+    created() {
+        this.getData();
+    },
+    methods: {
+        async getData() {
+            await this.axios.get(`weather?q=${this.keyword}&appid=${process.env.VUE_APP_API_KEY}&units=metric`)
+                .then((response) => {
+                    const { data } = response;
+                    this.weatherData = data;
+                    this.isError = false;
+                    this.isLoadnig = false;
+                })
+                .catch((error) => {
+                    this.weatherData = null;
+                    this.isError = true;
+                    this.isLoadnig = false;
+                    const { data } = error.response;
+                    if (data.cod === '404') {
+                        this.errorData = {
+                            cod: 404,
+                            message: `Sorry, we can't found city with keyword "${this.keyword}" , please try another keywords.`,
+                        };
+                    } else {
+                        this.errorData = data;
+                    }
+                });
+        },
+        ...mapActions({
+            setCity: 'setCity',
+            setLocation: 'location/set',
+            setDate: 'setDate',
+        }),
+        moreDetail() {
+            this.setLocation({
+                lat: this.weatherData.coord.lat,
+                lon: this.weatherData.coord.lon,
+            });
+            this.setCity(this.keyword);
+            this.setDate(this.weatherData.dt);
+            this.$router.push('/detail');
+        },
     },
 };
 </script>
