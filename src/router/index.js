@@ -43,6 +43,11 @@ const routes = [
         name: 'Daily',
         component: () => import(/* webpackChunkName: "daily" */ '@/views/Daily.vue'),
     },
+    {
+        path: '/favorite',
+        name: 'Favorite',
+        component: () => import(/* webpackChunkName: "favorite" */ '@/views/Favorite.vue'),
+    },
 ];
 
 const router = new VueRouter({

@@ -1,5 +1,5 @@
 <template>
-    <header class="flex justify-between items-center w-full p-3 border-b fixed top-0 bg-white z-50">
+    <header class="flex justify-between items-center w-full p-3 border-b fixed top-0 bg-white z-40">
         <div class="ml-6 mr-12 flex-none">
             <img src="../assets/images/glow-text.png" alt="Global Weather" width="95">
         </div>

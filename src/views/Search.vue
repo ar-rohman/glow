@@ -7,6 +7,7 @@
             <ErrorPage v-bind="errorData" />
         </div>
         <div v-if="weatherData">
+            <Alert />
             <div class="mb-4">
                 <p class="text-lg font-bold">
                     Weather forecast for {{ weatherData.name }}, {{ weatherData.sys.country }}
@@ -16,7 +17,27 @@
                 </p>
             </div>
             <div class="flex justify-between mb-1">
-                <div class="s">ADD</div>
+                <div>
+                    <button class="flex text-blue-500 hover:text-blue-700"
+                        @click="removeFromFavorite" v-if="isFavorited">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0
+                                01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1
+                                1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        <p class="text-sm ml-0.5">Remove from favorite</p>
+                    </button>
+                    <button class="flex text-blue-500 hover:text-blue-700"
+                        @click="addToFavorite" v-else>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1
+                                1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                        </svg>
+                        <p class="text-sm ml-0.5">Add to favorite</p>
+                    </button>
+                </div>
                 <div class="flex text-blue-500 hover:text-blue-700 text-sm cursor-pointer"
                     @click="moreDetail">
                     <p>More details</p>
@@ -117,15 +138,17 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import ErrorPage from '@/components/ErrorPage.vue';
 import HomeSkeleton from '@/components/skeleton/HomeSkeleton.vue';
+import Alert from '@/components/Alert.vue';
 
 export default {
     name: 'Search',
     components: {
         ErrorPage,
         HomeSkeleton,
+        Alert,
     },
     data() {
         return {
@@ -136,9 +159,17 @@ export default {
             errorData: null,
         };
     },
-    created() {
+    async created() {
         this.keyword = this.$route.query.q;
-        this.getData();
+        await this.getData();
+    },
+    computed: {
+        ...mapGetters({
+            cities: 'favorite/favorite',
+        }),
+        isFavorited() {
+            return this.cities.includes(this.weatherData.name);
+        },
     },
     watch: {
         '$route.query.q': {
@@ -182,6 +213,9 @@ export default {
             setCity: 'setCity',
             setLocation: 'location/set',
             setDate: 'setDate',
+            addFavorite: 'favorite/addFavorite',
+            removeFavorite: 'favorite/removeFavorite',
+            setAlert: 'alert/set',
         }),
         moreDetail() {
             this.setLocation({
@@ -191,6 +225,22 @@ export default {
             this.setCity(this.keyword);
             this.setDate(this.weatherData.dt);
             this.$router.push('/detail');
+        },
+        addToFavorite() {
+            this.addFavorite(this.weatherData.name);
+            this.setAlert({
+                type: 'success',
+                message: `${this.weatherData.name} successfully added to favorite locations`,
+                showAlert: true,
+            });
+        },
+        removeFromFavorite() {
+            this.removeFavorite(this.weatherData.name);
+            this.setAlert({
+                type: 'success',
+                message: `${this.weatherData.name} successfully removed from favorite locations`,
+                showAlert: true,
+            });
         },
     },
 };

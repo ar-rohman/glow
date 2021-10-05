@@ -4,7 +4,7 @@
             <AppHeader />
         </div>
         <div v-else>
-            <div class="flex w-full p-3 border-b fixed top-0 z-50 bg-white">
+            <div class="flex w-full p-3 border-b fixed top-0 z-40 bg-white">
                 <button @click.stop="$router.go(-1)">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
@@ -33,7 +33,7 @@ export default {
     },
     computed: {
         showAppHeader() {
-            const urls = ['Home', 'Setting', 'About'];
+            const urls = ['Home', 'Favorite', 'Setting', 'About'];
             return urls.includes(this.$route.name);
         },
     },
