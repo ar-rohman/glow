@@ -8,25 +8,28 @@
             <p class="text-lg font-bold">Favorite Locations</p>
         </div>
         <div class="bg-white">
-            <div class="px-6 py-4 shadow-md border border-gray-100
-                overflow-hidden rounded-lg min-w-min">
+            <div class="shadow-md border border-gray-100 overflow-hidden rounded-lg min-w-min">
                 <div class="divide-y" v-if="cities.length > 0">
-                    <div class="flex items-center justify-between py-4"
+                    <div class="hover:bg-blue-50"
                         v-for="(city, index) in cities" :key="index">
-                        <div>{{ city }}</div>
-                        <div class="">
-                            <button class="bg-red-100 text-red-500 rounded-full p-2
-                                hover:bg-red-500 hover:text-white"
-                                @click="modalConfirm(city)">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0
-                                        01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1
-                                        1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                            </button>
+                        <div class="flex items-center justify-between py-4 px-6">
+                            <div class="cursor-pointer w-full" @click="getCity(city)">
+                                {{ city }}
+                            </div>
+                            <div>
+                                <button class="bg-red-100 text-red-500 rounded-full p-2
+                                    hover:bg-red-500 hover:text-white"
+                                    @click="modalConfirm(city)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0
+                                            01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1
+                                            1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -77,6 +80,16 @@ export default {
             this.city = city;
             this.showModal = true;
         },
+        //
+        getCity(city) {
+            this.$router.push({
+                path: '/search',
+                query: {
+                    q: city,
+                },
+            });
+        },
+        //
     },
 };
 </script>
