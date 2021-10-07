@@ -13,10 +13,11 @@
                     <div class="hover:bg-blue-50"
                         v-for="(city, index) in cities" :key="index">
                         <div class="flex items-center justify-between py-4 px-6">
-                            <div class="cursor-pointer w-full" @click="getCity(city)">
+                            <div class="cursor-pointer w-full hover:text-blue-700"
+                                @click="getCity(city)">
                                 {{ city }}
                             </div>
-                            <div>
+                            <div class="ml-4">
                                 <button class="bg-red-100 text-red-500 rounded-full p-2
                                     hover:bg-red-500 hover:text-white"
                                     @click="modalConfirm(city)">
