@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else>There are no favorite locations</div>
+                <div class="py-4 px-6" v-else>There are no favorite locations</div>
             </div>
         </div>
     </div>
