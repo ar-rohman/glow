@@ -117,6 +117,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import Database from '@/storage/storageIdb';
 import ErrorPage from '@/components/ErrorPage.vue';
 import HomeSkeleton from '@/components/skeleton/HomeSkeleton.vue';
 
@@ -136,11 +137,19 @@ export default {
         };
     },
     created() {
-        this.getData();
+        this.getLocation();
     },
     methods: {
-        async getData() {
-            await this.axios.get(`weather?q=${this.keyword}&appid=${process.env.VUE_APP_API_KEY}&units=metric`)
+        async getLocation() {
+            const objectStoreSetting = process.env.VUE_APP_OBJECT_STORE_SETTING;
+            const idbLocation = await Database.getData(objectStoreSetting, 'location');
+            if (idbLocation) {
+                this.keyword = idbLocation.value;
+            }
+            this.getData();
+        },
+        getData() {
+            this.axios.get(`weather?q=${this.keyword}&appid=${process.env.VUE_APP_API_KEY}&units=metric`)
                 .then((response) => {
                     const { data } = response;
                     this.weatherData = data;

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Alert />
         <div class="mb-4">
             <p class="text-lg font-bold">Settings</p>
         </div>
@@ -19,17 +20,24 @@
                             <div class="sm:w-2/3 mt-4 sm:mt-1">
                                 <input type="text" name="location"
                                     class="appearance-none border border-gray-300 w-full py-2 px-4
-                                    text-gray-300 placeholder-gray-400 shadow-sm rounded-md
+                                    text-gray-500 placeholder-gray-400 shadow-sm rounded-md
                                     text-base focus:outline-none focus:ring-2 focus:ring-blue-700
-                                    focus:border-transparent focus:text-gray-700"
-                                    placeholder="Search location">
-                                <p class="my-1">Location found!</p>
-                                <button class="w-full inline-flex justify-center rounded-md
+                                    focus:border-transparent focus:text-gray-700" autocomplete="off"
+                                    :class="inputClassBind" v-model="location"
+                                    placeholder="Type location then enter..."
+                                    @change="checkLocation">
+                                <p class="my-2 font-bold"
+                                    :class="[isLocationExist ? 'text-green-500' : 'text-red-500']">
+                                    {{ errorMessage }}
+                                </p>
+                                <button v-if="isLocationExist"
+                                @click="setLocation"
+                                    class="w-full inline-flex justify-center rounded-md
                                     border border-transparent shadow-sm px-4 py-2 bg-blue-600
                                     text-base font-medium text-white hover:bg-blue-700
                                     focus:outline-none focus:ring-2 focus:ring-offset-2
                                     focus:ring-blue-500 sm:w-auto sm:text-sm">
-                                    Check
+                                    Save location
                                 </button>
                             </div>
                         </div>
@@ -84,9 +92,85 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import Alert from '@/components/Alert.vue';
+import Database from '@/storage/storageIdb';
+
 export default {
     name: 'Setting',
+    components: {
+        Alert,
+    },
+    data() {
+        return {
+            location: null,
+            isLocationExist: false,
+            errorMessage: null,
+            objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
+        };
+    },
+    created() {
+        this.getLocation();
+    },
     methods: {
+        async getLocation() {
+            const idbLocation = await Database.getData(this.objectStoreSetting, 'location');
+            if (idbLocation) {
+                this.location = idbLocation.value;
+            }
+        },
+        setLocation() {
+            if (this.isLocationExist) {
+                Database.updateData(this.objectStoreSetting, {
+                    name: 'location',
+                    value: this.$options.filters.titleCase(this.location),
+                });
+                this.setAlert({
+                    type: 'success',
+                    message: `${this.location} successfully added to default location`,
+                    showAlert: true,
+                });
+                this.isLocationExist = false;
+                this.errorMessage = null;
+            }
+        },
+        checkLocation() {
+            if (this.location) {
+                this.axios.get(`weather?q=${this.location}&appid=${process.env.VUE_APP_API_KEY}`)
+                    .then((response) => {
+                        const { cod } = response.data;
+                        if (Number(cod) === 200) {
+                            this.isLocationExist = true;
+                            this.errorMessage = `${this.location} is found!`;
+                        }
+                    })
+                    .catch((error) => {
+                        this.isLocationExist = false;
+                        const { cod } = error.response.data;
+                        if (Number(cod) === 404) {
+                            this.errorMessage = `${this.location} isn't found!`;
+                        } else {
+                            this.errorMessage = 'Something went wrong, please try again';
+                        }
+                    });
+            }
+        },
+        ...mapActions({
+            setAlert: 'alert/set',
+        }),
+    },
+    computed: {
+        inputClassBind() {
+            let result;
+            if (this.errorMessage) {
+                if (this.isLocationExist) {
+                    result = 'text-green-500 border border-green-500';
+                } else {
+                    result = 'text-red-500 border border-red-500';
+                }
+            }
+            return result;
+        },
     },
 };
 </script>

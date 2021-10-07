@@ -8,7 +8,9 @@ import './assets/styles/index.css';
 import StringFormater from './plugins/StringFormater';
 import DateFormater from './plugins/DateFormater';
 import Converter from './plugins/Converter';
+import initIdb from './storage/initIdb';
 
+initIdb.init();
 Vue.use(StringFormater);
 Vue.use(DateFormater);
 Vue.use(Converter);
