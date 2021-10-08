@@ -1,6 +1,7 @@
 <template>
     <form method="post">
-        <div class="relative text-gray-300 focus-within:text-gray-700">
+        <div class="relative text-gray-300 focus-within:text-gray-700
+            dark:focus-within:text-dark-200 dark:text-dark-400">
             <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                 <div class="p-1 focus:outline-none focus:shadow-outline">
                     <svg fill="none" stroke="currentColor" stroke-linecap="round"
@@ -13,13 +14,15 @@
             <input type="text" placeholder="Search city..." id="search"
                 class="appearance-none border border-gray-300 w-full py-2 px-10 text-gray-300
                 placeholder-gray-400 shadow-sm rounded-lg text-base focus:outline-none focus:ring-2
-                focus:ring-blue-700 focus:border-transparent focus:text-gray-700" autocomplete="off"
+                focus:ring-blue-700 focus:border-transparent focus:text-gray-700 dark:bg-dark-900
+                dark:focus:text-dark-200 dark:border-dark-700 dark:focus:border-transparent"
+                autocomplete="off"
                 v-model="searchInput" @keydown.enter="submitSearch" @keyup="isEmpty" >
             <span class="absolute inset-y-0 right-0 flex items-center px-2"
                 v-if="showClearSign">
                 <button
                     @click="clearInput"
-                    class="zp-1 focus:outline-none focus:shadow-outline">
+                    class="focus:outline-none focus:shadow-outline">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round"
                         stroke-width="2" d="M6 18L18 6M6 6l12 12" />

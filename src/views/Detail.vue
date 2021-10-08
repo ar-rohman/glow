@@ -15,7 +15,7 @@
                    Last updated {{ longFullDate(timestamp) }}
                 </p>
             </div>
-            <div class="bg-white mb-8">
+            <div class="mb-8">
                 <div class="flex justify-between mb-1">
                     <div class="font-bold">Hourly</div>
                     <div class="flex text-blue-500 hover:text-blue-700 text-sm cursor-pointer"
@@ -30,7 +30,7 @@
                 </div>
                 <horizontal-scroll reference="hourlyWeather">
                     <div class="px-6 py-4 shadow-md border border-gray-100
-                        overflow-hidden rounded-lg min-w-min"
+                        overflow-hidden rounded-lg min-w-min dark:border-dark-700"
                         v-for="hourly in weatherData.hourly" :key="hourly.dt">
                         <div class="flex flex-col items-center space-y-4 w-44">
                             <div class="flex justify-between whitespace-nowrap w-full text-sm">
@@ -68,7 +68,7 @@
                     </div>
                 </horizontal-scroll>
             </div>
-            <div class="bg-white">
+            <div>
                 <div class="flex justify-between mb-1">
                     <div class="font-bold">Daily</div>
                     <div class="flex text-blue-500 hover:text-blue-700 text-sm cursor-pointer"
@@ -83,7 +83,7 @@
                 </div>
                 <horizontal-scroll reference="dailyWeather">
                     <div class="px-6 py-4 shadow-md border border-gray-100
-                        overflow-hidden rounded-lg min-w-min"
+                        overflow-hidden rounded-lg min-w-min dark:border-dark-700"
                         v-for="daily in weatherData.daily" :key="daily.dt">
                         <div class="flex flex-col items-center space-y-4">
                             <div class="whitespace-nowrap">

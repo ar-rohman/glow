@@ -5,6 +5,7 @@ const initIdb = {
         const objectStoreSetting = process.env.VUE_APP_OBJECT_STORE_SETTING;
         const location = await Database.getData(objectStoreSetting, 'location');
         const temp = await Database.getData(objectStoreSetting, 'temperature');
+        const theme = await Database.getData(objectStoreSetting, 'theme');
         if (!location || !location.value) {
             Database.updateData(objectStoreSetting, {
                 name: 'location',
@@ -15,6 +16,12 @@ const initIdb = {
             Database.updateData(objectStoreSetting, {
                 name: 'temperature',
                 value: 'celsius',
+            });
+        }
+        if (!theme || !theme.value) {
+            Database.updateData(objectStoreSetting, {
+                name: 'theme',
+                value: 'default',
             });
         }
     },

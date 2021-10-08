@@ -10,9 +10,10 @@
             <div class="absolute w-full top-1/3 z-50"  v-if="alert">
                 <div class="flex justify-center">
                     <div class="bg-green-50 px-4 py-2 border border-green-300
-                        overflow-hidden rounded-lg w-max max-w-screen-md"
+                        overflow-hidden rounded-lg w-max max-w-screen-md
+                        dark:bg-green-500 dark:border-transparent"
                         v-if="type === 'success'">
-                        <div class="flex text-green-500">
+                        <div class="flex text-green-500 dark:text-dark-100">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -25,9 +26,10 @@
                         </div>
                     </div>
                     <div class="bg-blue-50 px-4 py-2 border border-blue-300
-                        overflow-hidden rounded-lg w-max max-w-screen-md"
+                        overflow-hidden rounded-lg w-max max-w-screen-md
+                        dark:bg-blue-500 dark:border-transparent"
                         v-else-if="type === 'info'">
-                        <div class="flex text-blue-500">
+                        <div class="flex text-blue-500 dark:text-dark-100">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
@@ -41,9 +43,10 @@
                         </div>
                     </div>
                     <div class="bg-yellow-50 px-4 py-2 border border-yellow-300
-                        overflow-hidden rounded-lg w-max max-w-screen-md"
+                        overflow-hidden rounded-lg w-max max-w-screen-md
+                        dark:bg-yellow-500 dark:border-transparent"
                         v-else-if="type === 'warning'">
-                        <div class="flex text-yellow-500">
+                        <div class="flex text-yellow-500 dark:text-dark-100">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
@@ -56,9 +59,10 @@
                         </div>
                     </div>
                     <div class="bg-red-50 px-4 py-2 border border-red-300
-                        overflow-hidden rounded-lg w-max max-w-screen-md"
+                        overflow-hidden rounded-lg w-max max-w-screen-md
+                        dark:bg-red-500 dark:border-transparent"
                         v-else-if="type === 'error'">
-                        <div class="flex text-red-500">
+                        <div class="flex text-red-500 dark:text-dark-100">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">

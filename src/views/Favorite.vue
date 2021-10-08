@@ -7,10 +7,11 @@
         <div class="mb-4">
             <p class="text-lg font-bold">Favorite Locations</p>
         </div>
-        <div class="bg-white">
-            <div class="shadow-md border border-gray-100 overflow-hidden rounded-lg min-w-min">
-                <div class="divide-y" v-if="cities.length > 0">
-                    <div class="hover:bg-blue-50"
+        <div>
+            <div class="shadow-md border border-gray-100 overflow-hidden rounded-lg min-w-min
+                dark:border-dark-700">
+                <div class="divide-y dark:divide-dark-700" v-if="cities.length > 0">
+                    <div class="hover:bg-blue-50 dark:hover:bg-dark-800"
                         v-for="(city, index) in cities" :key="index">
                         <div class="flex items-center justify-between py-4 px-6">
                             <div class="cursor-pointer w-full hover:text-blue-700"
@@ -18,9 +19,13 @@
                                 {{ city }}
                             </div>
                             <div class="ml-4">
-                                <button class="bg-red-100 text-red-500 rounded-full p-2
-                                    hover:bg-red-500 hover:text-white"
-                                    @click="modalConfirm(city)">
+                                <button class="bg-red-100 text-red-600 rounded-full p-2
+                                    hover:bg-red-600 hover:text-white dark:text-dark-200
+                                    dark:bg-red-600 dark:hover:bg-red-700
+                                    focus:outline-none focus:ring-2
+                                    focus:ring-offset-2 focus:ring-red-600
+                                    dark:focus:ring-offset-dark-900"
+                                            @click="modalConfirm(city)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round"

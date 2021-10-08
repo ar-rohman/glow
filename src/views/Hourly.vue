@@ -9,10 +9,10 @@
                     Last updated {{ longFullDate(timestamp) }}
                 </p>
             </div>
-            <div class="bg-white">
+            <div>
                 <div class="flex flex-wrap gap-6">
                     <div class="px-6 py-4 shadow-md border flex-grow flex-shrink-0
-                        border-gray-100 overflow-hidden rounded-lg w-64"
+                        border-gray-100 overflow-hidden rounded-lg w-64 dark:border-dark-700"
                         v-for="hourly in hourlyData" :key="hourly.dt">
                         <div class="flex flex-col space-y-4">
                             <div class="flex flex-col items-center">

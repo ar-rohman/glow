@@ -2,7 +2,7 @@
     <div class="relative">
         <div class="flex items-center">
             <div class="absolute left-0 -ml-4 ">
-                <button class="flex items-center bg-white mb-4"
+                <button class="flex items-center mb-4"
                     @click.prevent="arrowScrolling('left')"
                     :class="{ hidden: hideArrowLeft }">
                     <div class="flex justify-center items-center rounded-full h-8 w-8 shadow-md">
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="absolute right-0 -mr-4">
-                <button class="flex items-center bg-white mb-4"
+                <button class="flex items-center mb-4"
                     @click.prevent="arrowScrolling('right')"
                     :class="{ hidden: hideArrowRight }">
                     <div class="flex justify-center items-center rounded-full h-8 w-8 shadow-md">
