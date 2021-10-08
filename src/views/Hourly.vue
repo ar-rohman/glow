@@ -24,7 +24,7 @@
                                             :alt="`${hourly.weather[0].description}`"
                                             class="h-24 w-24">
                                         <div class="ml-4 text-6xl tracking-tighter">
-                                            {{ hourly.temp.toFixed() }}&deg;
+                                            {{ temperature(hourly.temp, tempUnit) }}&deg;
                                         </div>
                                     </div>
                                 </div>
@@ -35,7 +35,7 @@
                             <div class="flex flex-wrap gap-4">
                                 <div class="w-20">
                                     <p class="text-xs text-gray-400">Real Feel</p>
-                                    <p>{{ hourly.feels_like.toFixed() }}&deg;</p>
+                                    <p>{{ temperature(hourly.feels_like, tempUnit) }}&deg;</p>
                                 </div>
                                 <div class="w-20">
                                     <p class="text-xs text-gray-400">Pressure</p>
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="w-20">
                                     <p class="text-xs text-gray-400">Dew Point</p>
-                                    <p>{{ hourly.dew_point.toFixed() }}&deg;</p>
+                                    <p>{{ temperature(hourly.dew_point, tempUnit) }}&deg;</p>
                                 </div>
                             </div>
                         </div>
@@ -80,6 +80,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import ErrorPage from '@/components/ErrorPage.vue';
+import Database from '@/storage/storageIdb';
 
 export default {
     name: 'Hourly',
@@ -91,9 +92,12 @@ export default {
             isLoadnig: false,
             isError: false,
             errorData: null,
+            tempUnit: 'celsius',
+            objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
         };
     },
     created() {
+        this.getTempUnit();
         if (this.hourlyData.length === 0) {
             this.errorData = {
                 cod: 404,
@@ -107,6 +111,14 @@ export default {
             timestamp: 'timestamp',
             hourlyData: 'weather/hourly',
         }),
+    },
+    methods: {
+        async getTempUnit() {
+            const idbTemp = await Database.getData(this.objectStoreSetting, 'temperature');
+            if (idbTemp) {
+                this.tempUnit = idbTemp.value;
+            }
+        },
     },
 };
 </script>

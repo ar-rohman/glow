@@ -47,11 +47,11 @@
                             </div>
                             <div class="flex justify-between w-full">
                                 <div class="text-4xl tracking-tighter">
-                                    {{ hourly.temp.toFixed() }}&deg;
+                                    {{ temperature(hourly.temp, tempUnit) }}&deg;
                                 </div>
                                 <div class="flex flex-col">
                                     <div class="text-xs text-gray-400">Real Feel</div>
-                                    <div>{{ hourly.feels_like.toFixed() }}&deg;</div>
+                                    <div>{{ temperature(hourly.feels_like, tempUnit) }}&deg;</div>
                                 </div>
                             </div>
                             <div class="flex justify-between w-full">
@@ -99,10 +99,10 @@
                             </div>
                             <div class="flex justify-between items-end w-full">
                                 <div class="text-2xl tracking-tighter">
-                                    {{ daily.temp.max.toFixed() }}&deg;
+                                    {{ temperature(daily.temp.max, tempUnit) }}&deg;
                                 </div>
                                 <div>
-                                    {{ daily.temp.min.toFixed() }}&deg;
+                                    {{ temperature(daily.temp.min, tempUnit) }}&deg;
                                 </div>
                             </div>
                         </div>
@@ -118,6 +118,7 @@ import { mapActions, mapGetters } from 'vuex';
 import ErrorPage from '@/components/ErrorPage.vue';
 import DetailSkeleton from '@/components/skeleton/DetailSkeleton.vue';
 import HorizontalScroll from '@/components/HorizontalScroll.vue';
+import Database from '@/storage/storageIdb';
 
 export default {
     name: 'Detail',
@@ -132,9 +133,12 @@ export default {
             isError: false,
             weatherData: null,
             errorData: null,
+            tempUnit: 'celsius',
+            objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
         };
     },
     created() {
+        this.getTempUnit();
         this.getData();
     },
     computed: {
@@ -181,6 +185,12 @@ export default {
         dailyDetail() {
             this.setDaily(this.weatherData.daily);
             this.$router.push('/daily');
+        },
+        async getTempUnit() {
+            const idbTemp = await Database.getData(this.objectStoreSetting, 'temperature');
+            if (idbTemp) {
+                this.tempUnit = idbTemp.value;
+            }
         },
     },
 };

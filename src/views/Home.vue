@@ -48,11 +48,11 @@
                             <div>
                                 <p>Real Feel</p>
                                 <p class="text-2xl tracking-tighter">
-                                    {{ weatherData.main.feels_like.toFixed() }}&deg;
+                                    {{ temperature(weatherData.main.feels_like, tempUnit) }}&deg;
                                 </p>
                             </div>
                             <div class="text-6xl tracking-tighter">
-                                <p>{{ weatherData.main.temp.toFixed() }}&deg;</p>
+                                <p>{{ temperature(weatherData.main.temp, tempUnit) }}&deg;</p>
                             </div>
                         </div>
                     </div>
@@ -130,19 +130,21 @@ export default {
     data() {
         return {
             keyword: 'jakarta',
+            tempUnit: 'celsius',
             isLoadnig: true,
             isError: false,
             weatherData: null,
             errorData: null,
+            objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
         };
     },
     created() {
         this.getLocation();
+        this.getTempUnit();
     },
     methods: {
         async getLocation() {
-            const objectStoreSetting = process.env.VUE_APP_OBJECT_STORE_SETTING;
-            const idbLocation = await Database.getData(objectStoreSetting, 'location');
+            const idbLocation = await Database.getData(this.objectStoreSetting, 'location');
             if (idbLocation) {
                 this.keyword = idbLocation.value;
             }
@@ -184,6 +186,12 @@ export default {
             this.setCity(this.keyword);
             this.setDate(this.weatherData.dt);
             this.$router.push('/detail');
+        },
+        async getTempUnit() {
+            const idbTemp = await Database.getData(this.objectStoreSetting, 'temperature');
+            if (idbTemp) {
+                this.tempUnit = idbTemp.value;
+            }
         },
     },
 };

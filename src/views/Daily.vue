@@ -28,10 +28,10 @@
                                 <div class="flex flex-col justify-center w-20">
                                     <div class="flex justify-between items-end mt-1">
                                         <div class="text-2xl tracking-tighter">
-                                            {{ daily.temp.max.toFixed() }}&deg;
+                                            {{ temperature(daily.temp.max, tempUnit) }}&deg;
                                         </div>
                                         <div class="tracking-tighter">
-                                            {{ daily.temp.min.toFixed() }}&deg;
+                                            {{ temperature(daily.temp.min, tempUnit) }}&deg;
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="w-20">
                                     <p class="text-xs text-gray-400">Dew Point</p>
-                                    <p>{{ daily.dew_point.toFixed() }}&deg;</p>
+                                    <p>{{ temperature(daily.dew_point, tempUnit) }}&deg;</p>
                                 </div>
                                 <div class="w-20">
                                     <p class="text-xs text-gray-400">Sunrise</p>
@@ -92,6 +92,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import ErrorPage from '@/components/ErrorPage.vue';
+import Database from '@/storage/storageIdb';
 
 export default {
     name: 'Daily',
@@ -103,9 +104,12 @@ export default {
             isLoadnig: false,
             isError: false,
             errorData: null,
+            tempUnit: 'celsius',
+            objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
         };
     },
     created() {
+        this.getTempUnit();
         if (this.dailyData.length === 0) {
             this.errorData = {
                 cod: 404,
@@ -119,6 +123,14 @@ export default {
             timestamp: 'timestamp',
             dailyData: 'weather/daily',
         }),
+    },
+    methods: {
+        async getTempUnit() {
+            const idbTemp = await Database.getData(this.objectStoreSetting, 'temperature');
+            if (idbTemp) {
+                this.tempUnit = idbTemp.value;
+            }
+        },
     },
 };
 </script>

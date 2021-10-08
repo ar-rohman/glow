@@ -50,12 +50,16 @@
                             <div class="flex flex-col">
                                 <div class="inline-flex items-center mt-2">
                                     <input type="radio" name="temperature" id="celsius"
-                                        class="form-radio h-5 w-5" value="celsius" checked>
+                                        class="form-radio h-5 w-5" value="celsius"
+                                        v-model="temp" @change="setTemp"
+                                        :checked="temp === 'celsius'">
                                     <label for="celsius" class="ml-2">Celsius (&deg;C)</label>
                                 </div>
                                 <div class="inline-flex items-center mt-2">
                                     <input type="radio" name="temperature" id="fahrenheit"
-                                        class="form-radio h-5 w-5" value="fahrenheit">
+                                        class="form-radio h-5 w-5" value="fahrenheit"
+                                        v-model="temp" @change="setTemp"
+                                        :checked="temp === 'fahrenheit'">
                                     <label for="fahrenheit" class="ml-2">Fahrenheit (&deg;F)</label>
                                 </div>
                             </div>
@@ -103,7 +107,8 @@ export default {
     },
     data() {
         return {
-            location: null,
+            temp: 'celsius',
+            location: 'Jakarta',
             isLocationExist: false,
             errorMessage: null,
             objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
@@ -111,8 +116,21 @@ export default {
     },
     created() {
         this.getLocation();
+        this.getTemp();
     },
     methods: {
+        async getTemp() {
+            const idbTemp = await Database.getData(this.objectStoreSetting, 'temperature');
+            if (idbTemp) {
+                this.temp = idbTemp.value;
+            }
+        },
+        setTemp() {
+            Database.updateData(this.objectStoreSetting, {
+                name: 'temperature',
+                value: this.temp,
+            });
+        },
         async getLocation() {
             const idbLocation = await Database.getData(this.objectStoreSetting, 'location');
             if (idbLocation) {

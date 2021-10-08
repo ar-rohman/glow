@@ -70,11 +70,11 @@
                             <div>
                                 <p>Real Feel</p>
                                 <p class="text-2xl tracking-tighter">
-                                    {{ weatherData.main.feels_like.toFixed() }}&deg;
+                                    {{ temperature(weatherData.main.feels_like, tempUnit) }}&deg;
                                 </p>
                             </div>
                             <div class="text-6xl tracking-tighter">
-                                <p>{{ weatherData.main.temp.toFixed() }}&deg;</p>
+                                <p>{{ temperature(weatherData.main.temp, tempUnit) }}&deg;</p>
                             </div>
                         </div>
                     </div>
@@ -139,6 +139,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import Database from '@/storage/storageIdb';
 import ErrorPage from '@/components/ErrorPage.vue';
 import HomeSkeleton from '@/components/skeleton/HomeSkeleton.vue';
 import Alert from '@/components/Alert.vue';
@@ -157,9 +158,12 @@ export default {
             isError: false,
             weatherData: null,
             errorData: null,
+            tempUnit: 'celsius',
+            objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
         };
     },
     async created() {
+        this.getTempUnit();
         this.keyword = this.$route.query.q;
         await this.getData();
     },
@@ -241,6 +245,12 @@ export default {
                 message: `${this.weatherData.name} successfully removed from favorite locations`,
                 showAlert: true,
             });
+        },
+        async getTempUnit() {
+            const idbTemp = await Database.getData(this.objectStoreSetting, 'temperature');
+            if (idbTemp) {
+                this.tempUnit = idbTemp.value;
+            }
         },
     },
 };
