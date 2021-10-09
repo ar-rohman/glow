@@ -55,14 +55,22 @@
                             <div class="flex flex-col">
                                 <div class="inline-flex items-center mt-2">
                                     <input type="radio" name="temperature" id="celsius"
-                                        class="form-radio h-5 w-5" value="celsius"
+                                        class="h-5 w-5 text-blue-700 dark:bg-dark-900
+                                        dark:checked:bg-blue-700 dark:border-dark-200
+                                        dark:focus:ring-offset-dark-900
+                                        dark:checked:border-current"
+                                        value="celsius"
                                         v-model="temp" @change="setTemp"
                                         :checked="temp === 'celsius'">
                                     <label for="celsius" class="ml-2">Celsius (&deg;C)</label>
                                 </div>
                                 <div class="inline-flex items-center mt-2">
                                     <input type="radio" name="temperature" id="fahrenheit"
-                                        class="form-radio h-5 w-5" value="fahrenheit"
+                                        class="h-5 w-5 text-blue-700 dark:bg-dark-900
+                                        dark:checked:bg-blue-700 dark:border-dark-200
+                                        dark:focus:ring-offset-dark-900
+                                        dark:checked:border-current"
+                                        value="fahrenheit"
                                         v-model="temp" @change="setTemp"
                                         :checked="temp === 'fahrenheit'">
                                     <label for="fahrenheit" class="ml-2">Fahrenheit (&deg;F)</label>
@@ -78,21 +86,32 @@
                             <div class="flex flex-col">
                                 <div class="inline-flex items-center mt-2">
                                     <input type="radio" name="theme" id="default"
-                                        class="form-radio h-5 w-5" value="default"
+                                        class="h-5 w-5 text-blue-700 dark:bg-dark-900
+                                        dark:checked:bg-blue-700 dark:border-dark-200
+                                        dark:focus:ring-offset-dark-900
+                                        dark:checked:border-current"
+                                        value="default"
                                         v-model="theme" @change="setTheme"
                                         :checked="theme === 'default'">
                                     <label for="default" class="ml-2">System default</label>
                                 </div>
                                 <div class="inline-flex items-center mt-2">
                                     <input type="radio" name="theme" id="dark"
-                                        class="form-radio h-5 w-5" value="dark"
+                                        class="h-5 w-5 text-blue-700 dark:bg-dark-900
+                                        dark:checked:bg-blue-700 dark:border-dark-200
+                                        dark:focus:ring-offset-dark-900
+                                        dark:checked:border-current"
+                                        value="dark"
                                         v-model="theme" @change="setTheme"
                                         :checked="theme === 'dark'">
                                     <label for="dark" class="ml-2">Dark</label>
                                 </div>
                                 <div class="inline-flex items-center mt-2">
                                     <input type="radio" name="theme" id="light"
-                                        class="form-radio h-5 w-5" value="light"
+                                        class="h-5 w-5 text-blue-700 dark:bg-dark-900
+                                        dark:checked:bg-blue-700 dark:border-dark-200
+                                        dark:focus:ring-offset-dark-900
+                                        dark:checked:border-current" value="light"
                                         v-model="theme" @change="setTheme"
                                         :checked="theme === 'light'">
                                     <label for="light" class="ml-2">Light</label>
