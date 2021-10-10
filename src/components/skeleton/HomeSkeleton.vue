@@ -8,7 +8,7 @@
             <div class="flex flex-col sm:flex-row gap-y-10 sm:gap-x-10 mb-10">
                 <div class="px-6 py-4 shadow-md border border-gray-100
                     overflow-hidden rounded-lg w-full sm:w-1/2 animate-pulse
-                    dark:border-dark-700">
+                    dark:border-dark-700 dark:shadow-dark-md">
                     <div class="flex justify-between">
                         <div class="h-5 w-1/3 bg-gray-200 rounded dark:bg-dark-700"></div>
                         <div class="h-5 w-1/3 bg-gray-200 rounded dark:bg-dark-700"></div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="px-6 py-4 shadow-md border border-gray-100
                     overflow-hidden rounded-lg w-full sm:w-1/2 animate-pulse
-                    dark:border-dark-700">
+                    dark:border-dark-700 dark:shadow-dark-md">
                     <div class="flex justify-between mb-1">
                         <div class="h-3 w-16 bg-gray-200 rounded dark:bg-dark-700"></div>
                         <div class="h-3 w-16 bg-gray-200 rounded dark:bg-dark-700"></div>

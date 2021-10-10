@@ -13,7 +13,7 @@
                 <div class="flex space-x-4 mb-4">
                     <div class="px-6 py-4 shadow-md border border-gray-100
                         overflow-hidden rounded-lg min-w-min animate-pulse
-                        dark:border-dark-700"
+                        dark:border-dark-700 dark:shadow-dark-md"
                         v-for="index in 50" :key="index">
                         <div class="flex flex-col items-center space-y-4 w-44">
                             <div class="flex justify-between w-full">
@@ -65,7 +65,7 @@
                 <div class="flex space-x-4 mb-4">
                     <div class="px-6 py-4 shadow-md border border-gray-100
                         overflow-hidden rounded-lg min-w-min animate-pulse
-                        dark:border-dark-700"
+                        dark:border-dark-700 dark:shadow-dark-md"
                         v-for="index in 50" :key="index">
                         <div class="flex flex-col items-center space-y-4">
                             <div class="h-5 w-full bg-gray-200 rounded dark:bg-dark-700"></div>

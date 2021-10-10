@@ -16,6 +16,10 @@ module.exports = {
             colors: {
                 dark: colors.trueGray,
             },
+            boxShadow: {
+                'dark-md': '0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                'dark-lg': '0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+            },
         },
     },
     variants: {
@@ -24,6 +28,7 @@ module.exports = {
             backgroundColor: ['group-focus', 'checked'],
             backgroundImage: ['checked'],
             borderColor: ['checked'],
+            boxShadow: ['dark'],
             // opacity: ['disabled'],
             // backgroundColor: ['active'],
         },

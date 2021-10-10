@@ -51,7 +51,7 @@
             <div>
                 <div class="flex flex-col sm:flex-row gap-y-10 sm:gap-x-10 mb-10">
                     <div class="px-6 py-4 shadow-md border border-gray-100 overflow-hidden
-                        rounded-lg w-full sm:w-1/2 dark:border-dark-700">
+                        rounded-lg w-full sm:w-1/2 dark:border-dark-700 dark:shadow-dark-md">
                         <div class="flex justify-between">
                             <p>{{ weatherData.name }}</p>
                             <p>{{ adjective(weatherData.weather[0].main) }}</p>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="px-6 py-4 shadow-md border border-gray-100 overflow-hidden
-                        rounded-lg w-full sm:w-1/2 dark:border-dark-700">
+                        rounded-lg w-full sm:w-1/2 dark:border-dark-700 dark:shadow-dark-md">
                         <div class="flex justify-between mb-3">
                             <div>
                                 <p class="text-gray-400 text-xs">Pressure</p>

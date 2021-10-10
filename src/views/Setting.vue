@@ -6,7 +6,7 @@
         </div>
         <div>
             <div class="shadow-md border border-gray-100 overflow-hidden rounded-lg min-w-min
-                dark:border-dark-700">
+                dark:border-dark-700 dark:shadow-dark-md">
                 <div class="divide-y dark:divide-dark-700">
                     <div class="group hover:bg-blue-50 dark:hover:bg-dark-800">
                         <div class="flex flex-col sm:flex-row py-4 px-6">

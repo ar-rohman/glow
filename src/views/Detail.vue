@@ -30,7 +30,8 @@
                 </div>
                 <horizontal-scroll reference="hourlyWeather">
                     <div class="px-6 py-4 shadow-md border border-gray-100
-                        overflow-hidden rounded-lg min-w-min dark:border-dark-700"
+                        overflow-hidden rounded-lg min-w-min dark:border-dark-700
+                        dark:shadow-dark-md"
                         v-for="hourly in weatherData.hourly" :key="hourly.dt">
                         <div class="flex flex-col items-center space-y-4 w-44">
                             <div class="flex justify-between whitespace-nowrap w-full text-sm">
@@ -83,7 +84,8 @@
                 </div>
                 <horizontal-scroll reference="dailyWeather">
                     <div class="px-6 py-4 shadow-md border border-gray-100
-                        overflow-hidden rounded-lg min-w-min dark:border-dark-700"
+                        overflow-hidden rounded-lg min-w-min dark:border-dark-700
+                        dark:shadow-dark-md"
                         v-for="daily in weatherData.daily" :key="daily.dt">
                         <div class="flex flex-col items-center space-y-4">
                             <div class="whitespace-nowrap">

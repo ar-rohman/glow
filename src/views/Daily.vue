@@ -12,7 +12,8 @@
             <div>
                 <div class="flex flex-wrap gap-6">
                     <div class="px-6 py-4 shadow-md border flex-grow flex-shrink-0
-                        border-gray-100 overflow-hidden rounded-lg w-64 dark:border-dark-700"
+                        border-gray-100 overflow-hidden rounded-lg w-64 dark:border-dark-700
+                        dark:shadow-dark-md"
                         v-for="daily in dailyData" :key="daily.dt">
                         <div class="flex flex-col space-y-4">
                             <div class="flex flex-col items-center">

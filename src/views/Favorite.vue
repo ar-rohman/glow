@@ -9,7 +9,7 @@
         </div>
         <div>
             <div class="shadow-md border border-gray-100 overflow-hidden rounded-lg min-w-min
-                dark:border-dark-700">
+                dark:border-dark-700 dark:shadow-dark-md">
                 <div class="divide-y dark:divide-dark-700" v-if="cities.length > 0">
                     <div class="hover:bg-blue-50 dark:hover:bg-dark-800"
                         v-for="(city, index) in cities" :key="index">
