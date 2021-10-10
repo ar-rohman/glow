@@ -48,6 +48,11 @@ const routes = [
         name: 'Favorite',
         component: () => import(/* webpackChunkName: "favorite" */ '@/views/Favorite.vue'),
     },
+    {
+        path: '*',
+        name: 'NotFound',
+        component: () => import(/* webpackChunkName: "favorite" */ '@/components/ErrorPage.vue'),
+    },
 ];
 
 const router = new VueRouter({

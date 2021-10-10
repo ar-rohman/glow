@@ -23,7 +23,14 @@
 <script>
 export default {
     name: 'ErrorPage',
-    props: ['cod', 'message'],
+    props: {
+        cod: {
+            default: 404,
+        },
+        message: {
+            default: 'Sorry, the page you requested are not found.',
+        },
+    },
     data() {
         return {
             errorCode: '',
