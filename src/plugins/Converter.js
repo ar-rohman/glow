@@ -1,5 +1,3 @@
-// import Database from '@/storage/storageIdb';
-
 const Converter = {
     install(Vue) {
         // Convert meter per secound to kilometer per hours

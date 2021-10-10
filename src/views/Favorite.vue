@@ -86,7 +86,6 @@ export default {
             this.city = city;
             this.showModal = true;
         },
-        //
         getCity(city) {
             this.$router.push({
                 path: '/search',
@@ -95,7 +94,6 @@ export default {
                 },
             });
         },
-        //
     },
 };
 </script>

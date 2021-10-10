@@ -7,7 +7,7 @@ module.exports = {
         './public/**/*.html',
         './src/**/*.vue',
     ],
-    darkMode: 'class', // false or 'media' or 'class'
+    darkMode: 'class',
     theme: {
         extend: {
             fontFamily: {
@@ -29,8 +29,6 @@ module.exports = {
             backgroundImage: ['checked'],
             borderColor: ['checked'],
             boxShadow: ['dark'],
-            // opacity: ['disabled'],
-            // backgroundColor: ['active'],
         },
     },
     plugins: [

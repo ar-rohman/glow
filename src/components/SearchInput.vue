@@ -68,20 +68,6 @@ export default {
                 event.target.blur();
                 this.showClearSign = false;
             }
-            // if (this.searchInput.length > 0) {
-            //     this.axios.get(`?q=${this.searchInput}&appid=${process.env.VUE_APP_API_KEY}`)
-            //         .then((response) => {
-            //             const { data } = response.data;
-            //             this.searchResult = data;
-            //             console.log(response);
-            //         })
-            //         .catch((error) => {
-            //             console.log(error);
-            //         });
-            // } else {
-            //     console.log('response');
-            // }
-            //
         },
     },
 };
