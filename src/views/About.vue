@@ -1,11 +1,28 @@
 <template>
-    <div class="about">
-        <h1>This is an about pages</h1>
-        <h2>PR</h2>
-        <pre class="bg-gray-100">
-            prevent direct route
-            dark mode
-            celcius / Fahrenheit option
-        </pre>
+    <div>
+        <div class="mb-4">
+            <p class="text-lg font-bold">About</p>
+        </div>
+        <div class="dark:text-dark-300">
+            <p>Glow (stands for Global Weather) is an application that
+                provides weather data for any location on Earth.</p>
+            <p>
+                All weather data taken from
+                <a href="https://openweathermap.org/" class="text-blue-600 hover:text-blue-800"
+                    target="_blank">OpenWeather</a>.
+            </p>
+            <p class="my-4">
+                Developed by
+                <a href="https://github.com/rohmanpendo" class="text-blue-600 hover:text-blue-800"
+                    target="_blank">Rohman</a>
+            </p>
+            <p>Copyright &copy; 2021</p>
+        </div>
     </div>
 </template>
+
+<script>
+export default {
+    name: 'About',
+};
+</script>
