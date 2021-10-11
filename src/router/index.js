@@ -46,9 +46,9 @@ const routes = [
         component: () => import(/* webpackChunkName: "favorite" */ '@/views/Favorite.vue'),
     },
     {
-        path: '*',
+        path: '/not-found',
         name: 'NotFound',
-        component: () => import(/* webpackChunkName: "favorite" */ '@/components/ErrorPage.vue'),
+        component: () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue'),
     },
 ];
 
@@ -56,6 +56,14 @@ const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes,
+});
+
+router.beforeEach((to, from, next) => {
+    if (!to.matched.length) {
+        next('/not-found');
+    } else {
+        next();
+    }
 });
 
 export default router;
