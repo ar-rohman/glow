@@ -117,6 +117,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import axios from 'axios';
 import ErrorPage from '@/components/ErrorPage.vue';
 import DetailSkeleton from '@/components/skeleton/DetailSkeleton.vue';
 import HorizontalScroll from '@/components/HorizontalScroll.vue';
@@ -153,8 +154,11 @@ export default {
     },
     methods: {
         async getData() {
-            await this.axios
-                .get(`onecall?lat=${this.latitude}&lon=${this.longitude}&exclude=current,minutely,alerts&appid=${process.env.VUE_APP_API_KEY}&units=metric`)
+            const apiBaseUrl = process.env.VUE_APP_API_URL;
+            const apiKey = process.env.VUE_APP_API_KEY;
+            const coordinateParam = `lat=${this.latitude}&lon=${this.longitude}&exclude=current,minutely,alerts`;
+            const url = `${apiBaseUrl}/onecall?${coordinateParam}&appid=${apiKey}&units=metric`;
+            await axios.get(url)
                 .then((response) => {
                     const { data } = response;
                     this.weatherData = data;
