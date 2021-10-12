@@ -127,6 +127,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import axios from 'axios';
 import Alert from '@/components/Alert.vue';
 import Database from '@/storage/storageIdb';
 
@@ -203,7 +204,10 @@ export default {
         },
         checkLocation() {
             if (this.location) {
-                this.axios.get(`weather?q=${this.location}&appid=${process.env.VUE_APP_API_KEY}`)
+                const apiBaseUrl = process.env.VUE_APP_API_URL;
+                const apiKey = process.env.VUE_APP_API_KEY;
+                const url = `${apiBaseUrl}/weather?q=${this.location}&appid=${apiKey}`;
+                axios.get(url)
                     .then((response) => {
                         const { cod } = response.data;
                         if (Number(cod) === 200) {
