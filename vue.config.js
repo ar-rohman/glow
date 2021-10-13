@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 module.exports = {
     pwa: {
         name: 'Glow',
@@ -9,7 +11,7 @@ module.exports = {
         manifestOptions: {
             name: 'Global Weather',
             short_name: 'Glow',
-            description: 'Free Catalouge Restaurant for you',
+            description: 'Weather forecast for any location on Earth',
             orientation: 'portrait',
             display: 'standalone',
             start_url: '/index.html',
