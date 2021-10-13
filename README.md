@@ -1,24 +1,17 @@
-# glow
+# Glow
+Glow (stands for **Global Weather**) is an application that provides weather data for any location on Earth.
 
-## Project setup
-```
-npm install
-```
+All weather data taken from <a href="https://openweathermap.org/" target="_blank">OpenWeather</a>.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Features
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- Current weather forecast
+- Hourly weather forecast
+- Daily weather forecast
+- Search weather forecast by city
+- Set default city & temperature
+- Support dark mode
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Changelog
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Detailed changes for each release are documented in the release notes.
