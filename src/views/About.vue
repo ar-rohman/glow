@@ -16,13 +16,21 @@
                 <a href="https://github.com/rohmanpendo" class="text-blue-600 hover:text-blue-800"
                     target="_blank">Rohman</a>
             </p>
+            <p class="mb-4">Version {{ version }}</p>
             <p>Copyright &copy; 2021</p>
         </div>
     </div>
 </template>
 
 <script>
+import { version } from '../../package.json';
+
 export default {
     name: 'About',
+    data() {
+        return {
+            version,
+        };
+    },
 };
 </script>

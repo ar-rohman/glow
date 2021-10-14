@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 
 module.exports = {
+    publicPath: process.env.NODE_ENV === 'production' ? '/portofolio/glow' : '/',
     pwa: {
         name: 'Glow',
         themeColor: '#1D4ED8',
