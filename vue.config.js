@@ -15,7 +15,7 @@ module.exports = {
             description: 'Weather forecast for any location on Earth',
             orientation: 'portrait',
             display: 'standalone',
-            start_url: '/index.html',
+            start_url: '/portofolio/glow/index.html',
             background_color: '#404040',
             theme_color: '#1D4ED8',
         },
