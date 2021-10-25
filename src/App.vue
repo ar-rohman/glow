@@ -31,10 +31,6 @@ import Database from '@/storage/storageIdb';
 
 export default {
     name: 'App',
-    metaInfo: {
-        title: 'Glow',
-        titleTemplate: '%s - Global Weather',
-    },
     components: {
         AppHeader,
     },

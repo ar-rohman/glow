@@ -57,6 +57,13 @@ const router = new VueRouter({
     routes,
 });
 
+const defaultTitle = 'Glow';
+router.afterEach((to) => {
+    Vue.nextTick(() => {
+        document.title = `${to.name} - ${defaultTitle}` || defaultTitle;
+    });
+});
+
 router.beforeEach((to, from, next) => {
     if (!to.matched.length) {
         next('/not-found');
