@@ -13,7 +13,7 @@
             </p>
             <p class="my-4">
                 Developed by
-                <a href="https://github.com/rohmanpendo" class="text-blue-600 hover:text-blue-800"
+                <a href="https://github.com/ar-rohman" class="text-blue-600 hover:text-blue-800"
                     target="_blank">Rohman</a>
             </p>
             <p class="mb-4">Version {{ version }}</p>

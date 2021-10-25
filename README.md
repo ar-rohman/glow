@@ -14,4 +14,4 @@ All weather data taken from <a href="https://openweathermap.org/" target="_blank
 
 ## Changelog
 
-Detailed changes for each release are documented in the release notes.
+Detailed changes for each release are documented in the [release notes](https://github.com/ar-rohman/glow/releases).
