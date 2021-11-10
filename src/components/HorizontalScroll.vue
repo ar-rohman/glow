@@ -1,7 +1,7 @@
 <template>
     <div class="relative">
         <div class="flex items-center">
-            <div class="absolute left-0 -ml-4 ">
+            <div class="absolute left-0 -ml-4  hidden md:block">
                 <button class="flex items-center mb-4"
                     @click.prevent="arrowScrolling('left')"
                     :class="{ hidden: hideArrowLeft }">
@@ -21,7 +21,7 @@
                     <slot></slot>
                 </div>
             </div>
-            <div class="absolute right-0 -mr-4">
+            <div class="absolute right-0 -mr-4 hidden md:block">
                 <button class="flex items-center mb-4"
                     @click.prevent="arrowScrolling('right')"
                     :class="{ hidden: hideArrowRight }">
