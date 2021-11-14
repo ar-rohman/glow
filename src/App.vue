@@ -42,6 +42,10 @@ export default {
     },
     created() {
         this.getTheme();
+        Event.on('swOffline', console.log('offline on'));
+    },
+    destroyed() {
+        Event.off('swOffline', console.log('offline off'));
     },
     computed: {
         showAppHeader() {

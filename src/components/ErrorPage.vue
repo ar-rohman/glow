@@ -25,10 +25,10 @@ export default {
     name: 'ErrorPage',
     props: {
         cod: {
-            default: 404,
+            default: '',
         },
         message: {
-            default: 'Sorry, the page you requested are not found.',
+            default: 'Unknown error',
         },
     },
     data() {
@@ -62,7 +62,7 @@ export default {
                 this.errorMessage = 'Sorry, your request could not be processed';
             } else if (Number(this.cod) === 404) {
                 this.errorType = 'Not Found';
-                this.errorMessage = this.message;
+                this.errorMessage = 'Sorry, the page you requested are not found.';
             } else if (Number(this.cod) === 429) {
                 this.errorType = 'Too Many Requests';
                 this.errorMessage = 'Sorry, we have recieved too many requests and reached our limit, please try again in one minute.';
@@ -78,6 +78,9 @@ export default {
             } else if (Number(this.cod) === 504) {
                 this.errorType = 'Gateway Timeout';
                 this.errorMessage = this.message;
+            } else if (Window && !Navigator.onLine) {
+                this.errorType = 'You are offline';
+                this.errorMessage = 'Some features may not working properly, please check your internet connection.';
             } else {
                 this.errorType = 'Unknown Error';
                 this.errorMessage = this.message;
