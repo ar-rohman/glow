@@ -1,6 +1,7 @@
 <template>
     <div id="app" class="font-sans text-gray-700 bg-white dark:bg-dark-900
         dark:text-dark-200 min-h-screen">
+        <Alert />
         <div v-if="showAppHeader">
             <AppHeader />
         </div>
@@ -20,6 +21,7 @@
         <div class="mx-auto max-w-screen-lg">
             <div class="mx-10" :class="[showAppHeader ? 'py-20 sm:pb-4' : 'pt-14 pb-4']">
                 <router-view/>
+                <button @click="onClickTop">alert</button>
             </div>
         </div>
     </div>
@@ -27,12 +29,14 @@
 
 <script>
 import AppHeader from './components/AppHeader.vue';
+// import Alert2 from '@/components/Alert2.vue';
 import Database from '@/storage/storageIdb';
 
 export default {
     name: 'App',
     components: {
         AppHeader,
+        // Alert2,
     },
     data() {
         return {
@@ -50,6 +54,22 @@ export default {
         },
     },
     methods: {
+        onClickTop() {
+            this.$alert({
+                // group: 'app',
+                // title: 'Success',
+                // text: Your account was registered!',
+                text: `
+                    <div class="flex flex-col items-center justify-center gap-4">
+                        <p>An update is available, please refresh to load it.</p>
+                        <button class="bg-red-500 rounded-md px-4 py-2 text-white" onclick="window.location.reload()">Refresh</button>
+                    </div>
+                `,
+                // alertIcon: true,
+                // closeButton: false,
+                duration: -1,
+            });
+        },
         darkMode() {
             if (this.theme === 'dark' || (this.theme === 'default' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark');

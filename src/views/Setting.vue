@@ -122,6 +122,7 @@
                 </div>
             </div>
         </div>
+        <button @click="test" class="bg-red-500 px-4 py-2 rounded-md text-white">Test</button>
     </div>
 </template>
 
@@ -152,6 +153,17 @@ export default {
         this.getTheme();
     },
     methods: {
+        test() {
+            this.$alert({
+                // group: 'setting',
+                title: 'Success',
+                text: 'Your account was registered!',
+                // alertIcon: true,
+                // closeButton: false,
+                position: 'bottom',
+                duration: 4000,
+            });
+        },
         async getTheme() {
             const idbTheme = await Database.getData(this.objectStoreSetting, 'theme');
             if (idbTheme) {
