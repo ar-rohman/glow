@@ -6,7 +6,7 @@
                     Hourly weather forecast for {{ city | titleCase }}
                 </p>
                 <p class="text-xs">
-                    Last updated {{ longFullDate(timestamp) }}
+                    Last updated {{ timeFromNow(timestamp) }}
                 </p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">

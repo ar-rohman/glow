@@ -13,7 +13,7 @@
                     Weather forecast for {{ weatherData.name }}, {{ weatherData.sys.country }}
                 </p>
                 <p class="text-sm">
-                    {{ longFullDate(weatherData.dt) }}
+                    Last updated {{ timeFromNow(weatherData.dt) }}
                 </p>
             </div>
             <div class="flex justify-between mb-1">

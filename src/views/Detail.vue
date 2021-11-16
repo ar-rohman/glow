@@ -12,7 +12,7 @@
                     Weather forecast for {{ city | titleCase }}
                 </p>
                 <p class="text-xs">
-                   Last updated {{ longFullDate(timestamp) }}
+                   Last updated {{ timeFromNow(timestamp) }}
                 </p>
             </div>
             <div class="mb-8">
