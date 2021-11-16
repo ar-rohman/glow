@@ -15,9 +15,11 @@
                     v-for="hourly in hourlyData" :key="hourly.dt">
                     <div class="space-y-4">
                         <div class="grid justify-center">
-                            <div class="text-lg justify-self-center">{{ time(hourly.dt) }}</div>
+                            <div class="text-lg justify-self-center">
+                                {{ time(hourly.dt, timezone) }}
+                            </div>
                             <div class="text-sm justify-self-center">
-                                {{ shortDate(hourly.dt) }}
+                                {{ shortDate(hourly.dt, timezone) }}
                             </div>
                             <div class="grid justify-center grid-cols-2">
                                 <img :src="`http://openweathermap.org/img/wn/${hourly.weather[0].icon}@2x.png`"
@@ -107,6 +109,7 @@ export default {
         ...mapGetters({
             city: 'city',
             timestamp: 'timestamp',
+            timezone: 'timezone',
             hourlyData: 'weather/hourly',
         }),
     },

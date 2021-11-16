@@ -12,7 +12,6 @@
                     Current weather forecast
                 </p>
                 <p class="text-sm">
-                    <!-- Last updated {{ longFullDate(weatherData.dt) }} -->
                     Last updated {{ timeFromNow(weatherData.dt) }}
                 </p>
             </div>

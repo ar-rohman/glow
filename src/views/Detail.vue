@@ -35,8 +35,8 @@
                         v-for="hourly in weatherData.hourly" :key="hourly.dt">
                         <div class="flex flex-col items-center space-y-4 w-44">
                             <div class="flex justify-between whitespace-nowrap w-full text-sm">
-                                <p>{{ shortDate(hourly.dt) }}</p>
-                                <p>{{ time(hourly.dt) }}</p>
+                                <p>{{ shortDate(hourly.dt, weatherData.timezone_offset) }}</p>
+                                <p>{{ time(hourly.dt, weatherData.timezone_offset) }}</p>
                             </div>
                             <div class="flex justify-center h-24">
                                 <img :src="`http://openweathermap.org/img/wn/${hourly.weather[0].icon}@2x.png`"
@@ -89,7 +89,7 @@
                         v-for="daily in weatherData.daily" :key="daily.dt">
                         <div class="flex flex-col items-center space-y-4">
                             <div class="whitespace-nowrap">
-                                {{ threeLetterDay(daily.dt) }}
+                                {{ threeLetterDay(daily.dt, weatherData.timezone_offset) }}
                             </div>
                             <div class="flex justify-center h-24">
                                 <img :src="`http://openweathermap.org/img/wn/${daily.weather[0].icon}@2x.png`"
@@ -183,13 +183,17 @@ export default {
         ...mapActions({
             setHourly: 'weather/setHourly',
             setDaily: 'weather/setDaily',
+            setTimeZone: 'setTimeZone',
         }),
         hourlyDetail() {
             this.setHourly(this.weatherData.hourly);
+            this.setTimeZone(this.weatherData.timezone_offset);
+            console.log(this.weatherData.timezone_offset);
             this.$router.push('/hourly');
         },
         dailyDetail() {
             this.setDaily(this.weatherData.daily);
+            this.setTimeZone(this.weatherData.timezone_offset);
             this.$router.push('/daily');
         },
         async getTempUnit() {

@@ -15,7 +15,7 @@
                     v-for="daily in dailyData" :key="daily.dt">
                     <div class="space-y-4">
                         <div class="grid justify-center">
-                            <div>{{ threeLetterDay(daily.dt) }}</div>
+                            <div>{{ threeLetterDay(daily.dt, timezone) }}</div>
                             <div class="grid justify-center">
                                 <img :src="`http://openweathermap.org/img/wn/${daily.weather[0].icon}@2x.png`"
                                     :alt="`${daily.weather[0].description}`" class="h-24 w-24">
@@ -59,19 +59,19 @@
                             </div>
                             <div>
                                 <p class="text-xs text-gray-400">Sunrise</p>
-                                <p>{{ time(daily.sunrise) }}</p>
+                                <p>{{ time(daily.sunrise, timezone) }}</p>
                             </div>
                             <div>
                                 <p class="text-xs text-gray-400">Sunset</p>
-                                <p>{{ time(daily.sunset) }}</p>
+                                <p>{{ time(daily.sunset, timezone) }}</p>
                             </div>
                             <div>
                                 <p class="text-xs text-gray-400">Moonrise</p>
-                                <p>{{ time(daily.moonrise) }}</p>
+                                <p>{{ time(daily.moonrise, timezone) }}</p>
                             </div>
                             <div>
                                 <p class="text-xs text-gray-400">Moonset</p>
-                                <p>{{ time(daily.moonset) }}</p>
+                                <p>{{ time(daily.moonset, timezone) }}</p>
                             </div>
                         </div>
                     </div>
@@ -116,6 +116,7 @@ export default {
         ...mapGetters({
             city: 'city',
             timestamp: 'timestamp',
+            timezone: 'timezone',
             dailyData: 'weather/daily',
         }),
     },
