@@ -1,6 +1,19 @@
+// Return date & time to local city currently displayed
 const DateFormater = {
     install(Vue) {
-        // Return time in the city or location you are looking for
+        Vue.prototype.currentFullDate = (timezone) => {
+            const newDate = Date.now();
+            const utcFullDate = new Date(newDate + (timezone * 1000));
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const day = days[utcFullDate.getUTCDay()];
+            const date = (`0${utcFullDate.getUTCDate()}`).slice(-2);
+            const month = months[utcFullDate.getUTCMonth()];
+            const year = utcFullDate.getUTCFullYear();
+            const time = Vue.prototype.time((newDate / 1000), timezone);
+            const tz = Vue.prototype.timezone(timezone);
+            return `${day}, ${date} ${month} ${year} ${time} ${tz}`;
+        };
         Vue.prototype.threeLetterDay = (timestamp, timezone) => {
             const utcFullDate = new Date((timestamp * 1000) + (timezone * 1000));
             const longDateString = utcFullDate.toUTCString();

@@ -12,6 +12,9 @@
                     Current weather forecast
                 </p>
                 <p class="text-sm">
+                    {{ currentFullDate(weatherData.timezone) }}
+                </p>
+                <p class="text-xs">
                     Last updated {{ timeFromNow(weatherData.dt) }}
                 </p>
             </div>
