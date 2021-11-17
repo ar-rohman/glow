@@ -13,7 +13,10 @@
                     Weather forecast for {{ weatherData.name }}, {{ weatherData.sys.country }}
                 </p>
                 <p class="text-sm">
-                    {{ longFullDate(weatherData.dt) }}
+                    {{ currentFullDate(weatherData.timezone) }}
+                </p>
+                <p class="text-xs">
+                    Last updated {{ timeFromNow(weatherData.dt) }}
                 </p>
             </div>
             <div class="flex justify-between mb-1">
@@ -113,11 +116,11 @@
                         <div class="flex justify-between mb-3">
                             <div>
                                 <p class="text-gray-400 text-xs">Sunrise</p>
-                                <p>{{ time(weatherData.sys.sunrise) }}</p>
+                                <p>{{ time(weatherData.sys.sunrise, weatherData.timezone) }}</p>
                             </div>
                             <div class="text-right">
                                 <p class="text-gray-400 text-xs">Sunset </p>
-                                <p>{{ time(weatherData.sys.sunset) }}</p>
+                                <p>{{ time(weatherData.sys.sunset, weatherData.timezone) }}</p>
                             </div>
                         </div>
                         <div class="flex justify-between">
