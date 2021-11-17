@@ -3,6 +3,7 @@
         <div class="animate-pulse mb-4 flex space-y-2 flex-col">
             <div class="h-6 w-full sm:w-1/2 bg-gray-200 rounded dark:bg-dark-700"></div>
             <div class="h-4 w-3/4 sm:w-1/4 bg-gray-200 rounded dark:bg-dark-700"></div>
+            <div class="h-2 w-1/2 sm:w-1/4 bg-gray-200 rounded dark:bg-dark-700"></div>
         </div>
         <div class="flex justify-end mb-2">
             <div class="h-4 w-1/2 sm:w-1/4 bg-gray-200 rounded dark:bg-dark-700"></div>

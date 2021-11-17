@@ -13,6 +13,7 @@ export default new Vuex.Store({
     state: {
         city: null,
         timestamp: null,
+        timezone: null,
     },
     mutations: {
         setCity: (state, value) => {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
         },
         setDate: (state, value) => {
             state.timestamp = value;
+        },
+        setTimeZone: (state, value) => {
+            state.timezone = value;
         },
     },
     actions: {
@@ -29,10 +33,14 @@ export default new Vuex.Store({
         setDate: ({ commit }, value) => {
             commit('setDate', value);
         },
+        setTimeZone: ({ commit }, value) => {
+            commit('setTimeZone', value);
+        },
     },
     getters: {
         city: (state) => state.city,
         timestamp: (state) => state.timestamp,
+        timezone: (state) => state.timezone,
     },
     modules: {
         location,
