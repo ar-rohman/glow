@@ -48,8 +48,10 @@ const DateFormater = {
             return result;
         };
         Vue.prototype.timezone = (timezone) => {
-            const tz = timezone / 3600;
-            return tz > 0 ? `UTC+${tz}` : `UTC${tz}`;
+            const tz = Math.trunc(timezone / 3600);
+            const tzRemainder = timezone % 3600;
+            const tzm = (tzRemainder !== 0) ? `:${Math.abs(tzRemainder / 60)}` : '';
+            return tz > 0 ? `UTC+${tz}${tzm}` : `UTC${tz}${tzm}`;
         };
     },
 };
