@@ -123,23 +123,30 @@ export default {
     },
     methods: {
         alertStyles(type) {
-            let color;
+            let content;
+            let closeButton;
+            let icon;
             if (type === 'success') {
-                color = 'green';
+                content = 'text-green-500 border-l-0 rounded-r-lg';
+                icon = 'bg-green-500 border-green-500';
+                closeButton = 'text-green-500 bg-green-500 hover:text-green-600';
             } else if (type === 'info') {
-                color = 'blue';
+                content = 'text-blue-500 border-l-0 rounded-r-lg';
+                icon = 'bg-blue-500 border-blue-500';
+                closeButton = 'text-blue-500 bg-blue-500 hover:text-blue-600';
             } else if (type === 'warning') {
-                color = 'yellow';
+                content = 'text-yellow-500 border-l-0 rounded-r-lg';
+                icon = 'bg-yellow-500 border-yellow-500';
+                closeButton = 'text-yellow-500 bg-yellow-500 hover:text-yellow-600';
             } else if (type === 'error') {
-                color = 'red';
+                content = 'text-red-500 border-l-0 rounded-r-lg';
+                icon = 'bg-red-500 border-red-500';
+                closeButton = 'text-red-500 bg-red-500 hover:text-red-600';
             } else {
-                color = 'gray';
+                content = 'text-gray-700 dark:text-dark-200 rounded-lg';
+                icon = 'hidden';
+                closeButton = 'text-gray-500 bg-gray-500 hover:text-gray-600';
             }
-            const content = (color === 'gray')
-                ? `text-${color}-700 dark:text-dark-200 rounded-lg`
-                : `text-${color}-500 border-l-0 rounded-r-lg`;
-            const icon = (color === 'gray') ? 'hidden' : `bg-${color}-500 border-${color}-500`;
-            const closeButton = `text-${color}-500 bg-${color}-500 hover:text-${color}-600`;
             return { content, icon, closeButton };
         },
         closeAlert(id) {
