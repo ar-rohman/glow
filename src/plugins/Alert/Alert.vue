@@ -42,27 +42,33 @@
                                         8.586 8.707 7.293z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <div class="flex justify-between p-2 pl-4 w-full border border-gray-100
+                            <div class="p-2 pl-4 w-full border border-gray-100
                                 dark:border-dark-700" :class="alertStyles(alert.type).content">
-                                <div class="flex flex-col justify-center mr-4">
-                                    <div class="font-semibold" v-html="alert.title"></div>
-                                    <div class="text-sm" v-html="alert.text"></div>
-                                </div>
-                                <div class="" v-show="alert.closeButton">
-                                    <button class="p-0.5 rounded-md bg-opacity-10
-                                        hover:bg-opacity-25 dark:text-dark-500 dark:bg-black
-                                        dark:bg-opacity-20 dark:hover:text-dark-400
-                                        dark:hover:bg-opacity-30"
-                                        :class="alertStyles(alert.type).closeButton"
-                                        @click="closeAlert(alert.id)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414
-                                                0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414
-                                                10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293
-                                                4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1
-                                                1 0 010-1.414z" clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
+                                <div class="flex flex-col justify-center">
+                                    <div class="flex justify-between">
+                                        <div class="font-semibold">
+                                            <div v-html="alert.title"></div>
+                                        </div>
+                                        <div v-show="alert.closeButton">
+                                            <button class="p-0.5 rounded-md bg-opacity-10
+                                                hover:bg-opacity-25 dark:text-dark-500 dark:bg-black
+                                                dark:bg-opacity-20 dark:hover:text-dark-400
+                                                dark:hover:bg-opacity-30"
+                                                :class="alertStyles(alert.type).closeButton"
+                                                @click="closeAlert(alert.id)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
+                                                    fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0
+                                                        011.414 0L10 8.586l4.293-4.293a1 1 0 111.414
+                                                        1.414L11.414 10l4.293 4.293a1 1 0 01-1.414
+                                                        1.414L10 11.414l-4.293 4.293a1 1 0
+                                                        01-1.414-1.414L8.586 10 4.293 5.707a1
+                                                        1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="text-sm pr-2" v-html="alert.text"></div>
                                 </div>
                             </div>
                         </div>
