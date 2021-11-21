@@ -7,7 +7,7 @@ import './assets/styles/index.css';
 import StringFormater from './plugins/StringFormater';
 import DateFormater from './plugins/DateFormater';
 import Converter from './plugins/Converter';
-import Alert from './plugins/Alert/index';
+import Alert from './plugins/Alert';
 import initIdb from './storage/initIdb';
 
 initIdb.init();
