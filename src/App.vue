@@ -1,6 +1,7 @@
 <template>
     <div id="app" class="font-sans text-gray-700 bg-white dark:bg-dark-900
         dark:text-dark-200 min-h-screen">
+        <Alert group="indexed-db" />
         <div v-if="showAppHeader">
             <AppHeader />
         </div>

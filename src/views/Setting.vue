@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Alert />
         <div class="mb-4">
             <p class="text-lg font-bold">Settings</p>
         </div>
@@ -126,16 +125,11 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import axios from 'axios';
-import Alert from '@/components/Alert.vue';
 import Database from '@/storage/storageIdb';
 
 export default {
     name: 'Setting',
-    components: {
-        Alert,
-    },
     data() {
         return {
             temp: 'celsius',
@@ -193,10 +187,11 @@ export default {
                     name: 'location',
                     value: this.$options.filters.titleCase(this.location),
                 });
-                this.setAlert({
+                this.$alert({
                     type: 'success',
-                    message: `${this.location} successfully added to default location`,
-                    showAlert: true,
+                    title: 'Success!',
+                    text: `Default location changed to ${this.location}`,
+                    group: 'indexed-db',
                 });
                 this.isLocationExist = false;
                 this.errorMessage = null;
@@ -226,9 +221,6 @@ export default {
                     });
             }
         },
-        ...mapActions({
-            setAlert: 'alert/set',
-        }),
     },
     computed: {
         inputClassBind() {

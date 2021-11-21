@@ -4,7 +4,6 @@ import createPersistedState from 'vuex-persistedstate';
 import location from './location';
 import weather from './weather';
 import favorite from './favorite';
-import alert from './alert';
 
 Vue.use(Vuex);
 
@@ -46,6 +45,5 @@ export default new Vuex.Store({
         location,
         weather,
         favorite,
-        alert,
     },
 });

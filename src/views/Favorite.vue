@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Alert />
         <Modal :city="city" v-if="showModal"
             @closeModal="showModal = false"
             @deleteLocation="deleteFavorited" />
@@ -47,13 +46,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Alert from '@/components/Alert.vue';
 import Modal from '@/components/Modal.vue';
 
 export default {
     name: 'Favorite',
     components: {
-        Alert,
         Modal,
     },
     data() {
@@ -71,15 +68,15 @@ export default {
     methods: {
         ...mapActions({
             removeFavorite: 'favorite/removeFavorite',
-            setAlert: 'alert/set',
         }),
         deleteFavorited(city) {
             this.removeFavorite(city);
             this.showModal = false;
-            this.setAlert({
+            this.$alert({
                 type: 'success',
-                message: `${city} successfully removed from favorite locations`,
-                showAlert: true,
+                title: 'Success!',
+                text: `${city} removed from favorite`,
+                group: 'indexed-db',
             });
         },
         modalConfirm(city) {
