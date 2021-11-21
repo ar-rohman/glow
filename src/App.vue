@@ -72,9 +72,13 @@ export default {
                 group: 'swUpdate',
                 duration: -1,
                 closeButton: true,
+                title: `
+                    <p class="font-normal pr-4">
+                        New content is available, please refresh to load it.
+                    </p>
+                `,
                 text: `
-                    <div class="flex flex-col items-center justify-center gap-4 w-full">
-                        <p>New content is available, please refresh to load it.</p>
+                    <div class="flex justify-center mt-4">
                         <button class="w-full inline-flex justify-center rounded-md border border-transparent
                             shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700
                             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:w-auto
