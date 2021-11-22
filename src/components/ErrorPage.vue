@@ -79,8 +79,8 @@ export default {
                 this.errorType = 'Gateway Timeout';
                 this.errorMessage = this.message;
             } else if (Window && !Navigator.onLine) {
-                this.errorType = 'You are offline';
-                this.errorMessage = 'Some features may not working properly, please check your internet connection.';
+                this.errorType = 'No Internet Connection';
+                this.errorMessage = 'Please check your internet connection and try again.';
             } else {
                 this.errorType = 'Unknown Error';
                 this.errorMessage = this.message;

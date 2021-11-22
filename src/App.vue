@@ -103,7 +103,6 @@ export default {
         },
         isOnlineMode() {
             this.isOnline = navigator.onLine;
-            console.log('isOnline', this.isOnline);
             if (!this.isOnline) {
                 this.$alert({
                     group: 'swOffline',
