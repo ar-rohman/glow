@@ -23,6 +23,9 @@ module.exports = {
             gridTemplateColumns: {
                 'auto-fill': 'repeat(auto-fill, minmax(5rem, 1fr))',
             },
+            inset: {
+                center: 'calc(50% - (24rem / 2))',
+            },
         },
     },
     variants: {

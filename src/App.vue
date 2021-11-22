@@ -1,6 +1,8 @@
 <template>
     <div id="app" class="font-sans text-gray-700 bg-white dark:bg-dark-900
         dark:text-dark-200 min-h-screen">
+        <Alert group="indexed-db" />
+        <alert group="swUpdate" position="bottom-right"></alert>
         <div v-if="showAppHeader">
             <AppHeader />
         </div>
@@ -42,6 +44,7 @@ export default {
     },
     created() {
         this.getTheme();
+        document.addEventListener('swUpdated', this.updateAvailable, { once: true });
         Event.on('swOffline', console.log('offline on'));
     },
     destroyed() {
@@ -67,6 +70,29 @@ export default {
                 this.theme = idbTheme.value;
             }
             this.darkMode();
+        },
+        updateAvailable() {
+            this.$alert({
+                group: 'swUpdate',
+                duration: -1,
+                closeButton: true,
+                title: `
+                    <p class="font-normal pr-4">
+                        New content is available, please refresh to load it.
+                    </p>
+                `,
+                text: `
+                    <div class="flex justify-center mt-4">
+                        <button class="w-full inline-flex justify-center rounded-md border border-transparent
+                            shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700
+                            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:w-auto
+                            sm:text-sm dark:focus:ring-offset-dark-900"
+                            onclick="window.location.reload()">
+                            Refresh
+                        </button>
+                    </div>
+                `,
+            });
         },
     },
 };

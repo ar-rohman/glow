@@ -7,13 +7,15 @@
             <ErrorPage v-bind="errorData" />
         </div>
         <div v-if="weatherData">
-            <Alert />
             <div class="mb-4">
                 <p class="text-lg font-bold">
                     Weather forecast for {{ weatherData.name }}, {{ weatherData.sys.country }}
                 </p>
                 <p class="text-sm">
-                    {{ longFullDate(weatherData.dt) }}
+                    {{ currentFullDate(weatherData.timezone) }}
+                </p>
+                <p class="text-xs">
+                    Last updated {{ timeFromNow(weatherData.dt) }}
                 </p>
             </div>
             <div class="flex justify-between mb-1">
@@ -113,11 +115,11 @@
                         <div class="flex justify-between mb-3">
                             <div>
                                 <p class="text-gray-400 text-xs">Sunrise</p>
-                                <p>{{ time(weatherData.sys.sunrise) }}</p>
+                                <p>{{ time(weatherData.sys.sunrise, weatherData.timezone) }}</p>
                             </div>
                             <div class="text-right">
                                 <p class="text-gray-400 text-xs">Sunset </p>
-                                <p>{{ time(weatherData.sys.sunset) }}</p>
+                                <p>{{ time(weatherData.sys.sunset, weatherData.timezone) }}</p>
                             </div>
                         </div>
                         <div class="flex justify-between">
@@ -143,14 +145,12 @@ import axios from 'axios';
 import Database from '@/storage/storageIdb';
 import ErrorPage from '@/components/ErrorPage.vue';
 import HomeSkeleton from '@/components/skeleton/HomeSkeleton.vue';
-import Alert from '@/components/Alert.vue';
 
 export default {
     name: 'Search',
     components: {
         ErrorPage,
         HomeSkeleton,
-        Alert,
     },
     data() {
         return {
@@ -221,7 +221,6 @@ export default {
             setDate: 'setDate',
             addFavorite: 'favorite/addFavorite',
             removeFavorite: 'favorite/removeFavorite',
-            setAlert: 'alert/set',
         }),
         moreDetail() {
             this.setLocation({
@@ -234,18 +233,20 @@ export default {
         },
         addToFavorite() {
             this.addFavorite(this.weatherData.name);
-            this.setAlert({
+            this.$alert({
                 type: 'success',
-                message: `${this.weatherData.name} successfully added to favorite locations`,
-                showAlert: true,
+                title: 'Success!',
+                text: `${this.weatherData.name} added to favorite`,
+                group: 'indexed-db',
             });
         },
         removeFromFavorite() {
             this.removeFavorite(this.weatherData.name);
-            this.setAlert({
+            this.$alert({
                 type: 'success',
-                message: `${this.weatherData.name} successfully removed from favorite locations`,
-                showAlert: true,
+                title: 'Success!',
+                text: `${this.weatherData.name} removed from favorite`,
+                group: 'indexed-db',
             });
         },
         async getTempUnit() {
