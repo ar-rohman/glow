@@ -3,6 +3,7 @@
         dark:text-dark-200 min-h-screen">
         <Alert group="indexed-db" />
         <alert group="swUpdate" position="bottom-right"></alert>
+        <alert group="swOffline"></alert>
         <div v-if="showAppHeader">
             <AppHeader />
         </div>
@@ -40,11 +41,21 @@ export default {
         return {
             theme: 'default',
             objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
+            isOnline: navigator.onLine,
         };
     },
     created() {
         this.getTheme();
         document.addEventListener('swUpdated', this.updateAvailable, { once: true });
+    },
+    mounted() {
+        window.addEventListener('online', this.isOnlineMode);
+        window.addEventListener('offline', this.isOnlineMode);
+        this.isOnlineMode();
+    },
+    beforeDestroy() {
+        window.removeEventListener('online', this.isOnlineMode);
+        window.removeEventListener('offline', this.isOnlineMode);
     },
     computed: {
         showAppHeader() {
@@ -89,6 +100,19 @@ export default {
                     </div>
                 `,
             });
+        },
+        isOnlineMode() {
+            this.isOnline = navigator.onLine;
+            if (!this.isOnline) {
+                this.$alert({
+                    group: 'swOffline',
+                    duration: -1,
+                    closeButton: true,
+                    type: 'warning',
+                    title: 'You are offline',
+                    text: 'Some features may not working properly, please check your internet connection.',
+                });
+            }
         },
     },
 };
