@@ -56,7 +56,8 @@ export default {
     },
     computed: {
         sortedAlerts() {
-            if (this.context.position === 'bottom') { return [...this.alertsByGroup].slice(0, this.maxAlerts); }
+            const positionY = this.context.position.split('-')[0];
+            if (positionY === 'bottom') { return [...this.alertsByGroup].slice(0, this.maxAlerts); }
             // if not bottom reverse the array
             return [...this.alertsByGroup]
                 .reverse()
