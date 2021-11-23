@@ -169,14 +169,16 @@ export default {
                     this.weatherData = null;
                     this.isError = true;
                     this.isLoadnig = false;
-                    const { data } = error.response;
-                    if (data.cod === '404') {
-                        this.errorData = {
-                            cod: 404,
-                            message: `Sorry, we can't found city with keyword "${this.keyword}" , please try another keywords.`,
-                        };
-                    } else {
-                        this.errorData = data;
+                    if (error.response) {
+                        const { data } = error.response;
+                        if (data.cod === '404') {
+                            this.errorData = {
+                                cod: 404,
+                                message: `Sorry, we can't found city with keyword "${this.keyword}" , please try another keywords.`,
+                            };
+                        } else {
+                            this.errorData = data;
+                        }
                     }
                 });
         },

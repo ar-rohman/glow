@@ -212,11 +212,13 @@ export default {
                     })
                     .catch((error) => {
                         this.isLocationExist = false;
-                        const { cod } = error.response.data;
-                        if (Number(cod) === 404) {
-                            this.errorMessage = `${this.location} isn't found!`;
-                        } else {
-                            this.errorMessage = 'Something went wrong, please try again';
+                        if (error.response) {
+                            const { cod } = error.response.data;
+                            if (Number(cod) === 404) {
+                                this.errorMessage = `${this.location} isn't found!`;
+                            } else {
+                                this.errorMessage = 'Something went wrong, please try again';
+                            }
                         }
                     });
             }
