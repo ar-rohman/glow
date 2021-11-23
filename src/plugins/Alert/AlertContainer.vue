@@ -1,6 +1,6 @@
 <script>
 import defaults from './defaults';
-import { state, methods } from './util';
+import { state } from './util';
 
 export default {
     inject: {
@@ -65,12 +65,6 @@ export default {
         },
         alertsByGroup() {
             return this.alerts.filter((n) => n.group === this.context.group);
-        },
-    },
-    methods: {
-        close(id) {
-            this.$emit('close');
-            methods.removeAlert(id);
         },
     },
 };

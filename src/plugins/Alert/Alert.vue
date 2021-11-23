@@ -46,7 +46,7 @@
                                 dark:border-dark-700" :class="alertStyles(alert.type).content">
                                 <div class="flex flex-col justify-center">
                                     <div class="flex justify-between">
-                                        <div class="font-semibold">
+                                        <div class="font-semibold mb-2">
                                             <div v-html="alert.title"></div>
                                         </div>
                                         <div v-show="alert.closeButton">
@@ -55,7 +55,7 @@
                                                 dark:bg-opacity-20 dark:hover:text-dark-400
                                                 dark:hover:bg-opacity-30"
                                                 :class="alertStyles(alert.type).closeButton"
-                                                @click="closeAlert(alert.id)">
+                                                @click="closeAlertById(alert.id)">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
                                                     fill="currentColor">
                                                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0
@@ -149,8 +149,8 @@ export default {
             }
             return { content, icon, closeButton };
         },
-        closeAlert(id) {
-            methods.removeAlert(id);
+        closeAlertById(id) {
+            methods.removeAlertById(id);
         },
     },
 };

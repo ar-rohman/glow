@@ -21,15 +21,23 @@ export const methods = {
         data.group = data.group || defaults.group;
         data.alertIcon = (typeof data.alertIcon === 'undefined') ? true : data.alertIcon;
         data.type = data.type || defaults.type;
-        state.alertData.push(data);
+        data.clean = data.clean || defaults.clean;
+        if (data.clean) {
+            this.removeAlertByGroup(data.group);
+        } else {
+            state.alertData.push(data);
+        }
         const timeout = data.duration || defaults.duration;
         if (timeout > 0) {
             setTimeout(() => {
-                this.removeAlert(data.id);
+                this.removeAlertById(data.id);
             }, timeout);
         }
     },
-    removeAlert(id) {
+    removeAlertById(id) {
         state.alertData.splice(state.alertData.findIndex((n) => n.id === id), 1);
+    },
+    removeAlertByGroup(group) {
+        state.alertData.filter((value) => value !== group);
     },
 };

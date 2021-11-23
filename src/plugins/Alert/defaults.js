@@ -4,6 +4,7 @@ export default {
     maxAlerts: 10,
     duration: 3000, //  3s
     alertIcon: false,
+    clean: false,
     type: '',
     // Animation
     enterActiveClassDelayed: 'transform ease-out duration-300 transition delay-300',

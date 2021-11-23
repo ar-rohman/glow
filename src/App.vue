@@ -3,7 +3,7 @@
         dark:text-dark-200 min-h-screen">
         <Alert group="indexed-db" />
         <alert group="swUpdate" position="bottom-right"></alert>
-        <alert group="swOffline"></alert>
+        <alert group="swOffline" position="top-right"></alert>
         <div v-if="showAppHeader">
             <AppHeader />
         </div>
@@ -103,7 +103,12 @@ export default {
         },
         isOnlineMode() {
             this.isOnline = navigator.onLine;
-            if (!this.isOnline) {
+            if (this.isOnline) {
+                this.$alert({
+                    group: 'swOffline',
+                    clean: true,
+                });
+            } else {
                 this.$alert({
                     group: 'swOffline',
                     duration: -1,
