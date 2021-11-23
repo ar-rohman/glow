@@ -117,7 +117,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import axios from 'axios';
 import ErrorPage from '@/components/ErrorPage.vue';
 import DetailSkeleton from '@/components/skeleton/DetailSkeleton.vue';
 import HorizontalScroll from '@/components/HorizontalScroll.vue';
@@ -142,6 +141,7 @@ export default {
     },
     created() {
         this.getTempUnit();
+        this.isOnline();
         this.getData();
     },
     computed: {
@@ -153,12 +153,16 @@ export default {
         }),
     },
     methods: {
+        isOnline() {
+            window.addEventListener('online', () => {
+                if (!this.weatherData) {
+                    this.getData();
+                }
+            });
+        },
         async getData() {
-            const apiBaseUrl = process.env.VUE_APP_API_URL;
-            const apiKey = process.env.VUE_APP_API_KEY;
-            const coordinateParam = `lat=${this.latitude}&lon=${this.longitude}&exclude=current,minutely,alerts`;
-            const url = `${apiBaseUrl}/onecall?${coordinateParam}&appid=${apiKey}&units=metric`;
-            await axios.get(url)
+            const param = `onecall?lat=${this.latitude}&lon=${this.longitude}&exclude=current,minutely,alerts`;
+            await this.$axios(param)
                 .then((response) => {
                     const { data } = response;
                     this.weatherData = data;
@@ -190,7 +194,6 @@ export default {
         hourlyDetail() {
             this.setHourly(this.weatherData.hourly);
             this.setTimeZone(this.weatherData.timezone_offset);
-            console.log(this.weatherData.timezone_offset);
             this.$router.push('/hourly');
         },
         dailyDetail() {

@@ -125,7 +125,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Database from '@/storage/storageIdb';
 
 export default {
@@ -199,10 +198,7 @@ export default {
         },
         checkLocation() {
             if (this.location) {
-                const apiBaseUrl = process.env.VUE_APP_API_URL;
-                const apiKey = process.env.VUE_APP_API_KEY;
-                const url = `${apiBaseUrl}/weather?q=${this.location}&appid=${apiKey}`;
-                axios.get(url)
+                this.$axios(`weather?q=${this.location}`)
                     .then((response) => {
                         const { cod } = response.data;
                         if (Number(cod) === 200) {
@@ -219,6 +215,8 @@ export default {
                             } else {
                                 this.errorMessage = 'Something went wrong, please try again';
                             }
+                        } else {
+                            this.errorMessage = error.toJSON().message;
                         }
                     });
             }

@@ -120,7 +120,6 @@
 
 <script>
 import { mapActions } from 'vuex';
-import axios from 'axios';
 import Database from '@/storage/storageIdb';
 import ErrorPage from '@/components/ErrorPage.vue';
 import HomeSkeleton from '@/components/skeleton/HomeSkeleton.vue';
@@ -152,13 +151,18 @@ export default {
             if (idbLocation) {
                 this.keyword = idbLocation.value;
             }
+            this.isOnline();
             this.getData();
         },
+        isOnline() {
+            window.addEventListener('online', () => {
+                if (!this.weatherData) {
+                    this.getData();
+                }
+            });
+        },
         getData() {
-            const apiBaseUrl = process.env.VUE_APP_API_URL;
-            const apiKey = process.env.VUE_APP_API_KEY;
-            const url = `${apiBaseUrl}/weather?q=${this.keyword}&appid=${apiKey}&units=metric`;
-            axios.get(url)
+            this.$axios(`weather?q=${this.keyword}`)
                 .then((response) => {
                     const { data } = response;
                     this.weatherData = data;
