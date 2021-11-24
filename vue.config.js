@@ -13,7 +13,7 @@ module.exports = {
             name: 'Global Weather',
             short_name: 'Glow',
             description: 'Weather forecast for any location on Earth',
-            orientation: 'portrait',
+            orientation: 'any',
             display: 'standalone',
             start_url: '/portfolio/glow/index.html',
             background_color: '#404040',
