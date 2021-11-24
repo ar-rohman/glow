@@ -1,8 +1,8 @@
 <template>
     <nav class="flex justify-between gap-x-4 items-center flex-grow fixed bottom-0
-            inset-x-0 w-full sm:w-auto sm:bottom-auto sm:inset-x-auto sm:relative sm:justify-end
-            px-6 py-2 border-t sm:border-none sm:py-0 text-sm sm:text-base bg-white
-            dark:bg-dark-900 dark:border-dark-700">
+            inset-x-0 w-full sm:w-auto sm:bottom-auto sm:inset-x-auto sm:relative
+            px-6 sm:px-0 py-2 sm:py-0 sm:mr-2 md:mr-8 border-t sm:border-none text-sm sm:text-base
+            sm:max-w-max bg-white dark:bg-dark-900 dark:border-dark-700">
         <div :class="{ 'text-blue-700': isActivePath('/') }">
             <router-link to="/" class="flex flex-col items-center hover:text-blue-700">
                 <div class="sm:hidden">
