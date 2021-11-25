@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ErrorPage />
+        <ErrorPage v-bind="errorData" />
     </div>
 </template>
 
@@ -11,6 +11,13 @@ export default {
     name: 'NotFound',
     components: {
         ErrorPage,
+    },
+    data() {
+        return {
+            errorData: {
+                cod: 404,
+            },
+        };
     },
 };
 </script>

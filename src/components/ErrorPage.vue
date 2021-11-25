@@ -28,7 +28,7 @@ export default {
             default: '',
         },
         message: {
-            default: 'Unknown error',
+            default: '',
         },
     },
     data() {
@@ -62,7 +62,7 @@ export default {
                 this.errorMessage = 'Sorry, your request could not be processed';
             } else if (Number(this.cod) === 404) {
                 this.errorType = 'Not Found';
-                this.errorMessage = 'Sorry, the page you requested are not found.';
+                this.errorMessage = this.message || 'Sorry, the page you requested are not found.';
             } else if (Number(this.cod) === 429) {
                 this.errorType = 'Too Many Requests';
                 this.errorMessage = 'Sorry, we have recieved too many requests and reached our limit, please try again in one minute.';
@@ -78,7 +78,7 @@ export default {
             } else if (Number(this.cod) === 504) {
                 this.errorType = 'Gateway Timeout';
                 this.errorMessage = this.message;
-            } else if (Window && !Navigator.onLine) {
+            } else if (!navigator.onLine) {
                 this.errorType = 'No Internet Connection';
                 this.errorMessage = 'Please check your internet connection and try again.';
             } else {
