@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production' ? '/portfolio/glow' : '/',
+    publicPath: '/', // process.env.NODE_ENV === 'production' ? '/portfolio/glow' : '/',
     pwa: {
         name: 'Glow',
         themeColor: '#1D4ED8',
@@ -15,7 +15,7 @@ module.exports = {
             description: 'Weather forecast for any location on Earth',
             orientation: 'any',
             display: 'standalone',
-            start_url: '/portfolio/glow/index.html',
+            start_url: '/index.html',
             background_color: '#404040',
             theme_color: '#1D4ED8',
         },
