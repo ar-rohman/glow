@@ -66,7 +66,7 @@ const router = new VueRouter({
 const defaultTitle = 'Glow';
 router.afterEach((to) => {
     Vue.nextTick(() => {
-        document.title = `${to.name} - ${defaultTitle}` || defaultTitle;
+        document.title = to.name ? `${to.name} - ${defaultTitle}` : defaultTitle;
     });
 });
 
