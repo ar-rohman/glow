@@ -3,8 +3,11 @@
             inset-x-0 w-full sm:w-auto sm:bottom-auto sm:inset-x-auto sm:relative
             px-6 sm:px-0 py-2 sm:py-0 sm:mr-2 md:mr-8 border-t sm:border-none text-sm sm:text-base
             sm:max-w-max bg-white dark:bg-dark-900 dark:border-dark-700">
-        <div :class="{ 'text-blue-700': isActivePath('/') }">
-            <router-link to="/" class="flex flex-col items-center hover:text-blue-700">
+        <div :class="{ 'text-blue-500': isActivePath('/') }">
+            <router-link
+                to="/"
+                class="flex flex-col items-center hover:text-blue-600 focus:text-blue-700
+                    focus:outline-none">
                 <div class="sm:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
                         fill="currentColor" v-if="isActivePath('/')">
@@ -25,8 +28,11 @@
                 <p>Home</p>
             </router-link>
         </div>
-        <div :class="{ 'text-blue-700': isActivePath('/favorite') }">
-            <router-link to="/favorite" class="flex flex-col items-center hover:text-blue-700">
+        <div :class="{ 'text-blue-500': isActivePath('/favorite') }">
+            <router-link
+                to="/favorite"
+                class="flex flex-col items-center hover:text-blue-600 focus:text-blue-700
+                    focus:outline-none">
                 <div class="sm:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
                         fill="currentColor"  v-if="isActivePath('/favorite')">
@@ -52,8 +58,11 @@
                 <p>Favorite</p>
             </router-link>
         </div>
-        <div :class="{ 'text-blue-700': isActivePath('/setting') }">
-            <router-link to="/setting" class="flex flex-col items-center hover:text-blue-700">
+        <div :class="{ 'text-blue-500': isActivePath('/setting') }">
+            <router-link
+                to="/setting"
+                class="flex flex-col items-center hover:text-blue-600 focus:text-blue-700
+                    focus:outline-none">
                 <div class="sm:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
                         fill="currentColor" v-if="isActivePath('/setting')">
@@ -87,8 +96,11 @@
             </router-link>
         </div>
 
-        <div :class="{ 'text-blue-700': isActivePath('/about') }">
-            <router-link to="/about" class="flex flex-col items-center hover:text-blue-700">
+        <div :class="{ 'text-blue-500': isActivePath('/about') }">
+            <router-link
+                to="/about"
+                class="flex flex-col items-center hover:text-blue-600 focus:text-blue-700
+                    focus:outline-none">
                 <div class="sm:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
                         fill="currentColor" v-if="isActivePath('/about')">
