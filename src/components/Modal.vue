@@ -34,12 +34,13 @@
                             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                 <h3 class="text-lg leading-6 font-medium text-gray-900
                                     dark:text-dark-200" id="modal-title">
-                                    Delete location
+                                    {{ $t('modalTitle') }}
                                 </h3>
                                 <div class="mt-2">
                                     <div class="text-sm text-gray-500 dark:text-dark-400">
-                                        <p>Are you sure you want to delete {{ city }} city?</p>
-                                        <p>This action cannot be undone.</p>
+                                        <p>{{ $t('deleteMessage1') }}
+                                            {{ city }}{{ $t('deleteMessage2') }}</p>
+                                        <p>{{ $t('deleteMessage3') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +53,7 @@
                             font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2
                             focus:ring-offset-2 focus:ring-red-600 sm:ml-3 sm:w-auto sm:text-sm
                             dark:focus:ring-offset-dark-900">
-                            Delete
+                            {{ $t('delete') }}
                         </button>
                         <button type="button" @click="$emit('closeModal')"
                             class="mt-3 w-full inline-flex justify-center rounded-md
@@ -61,7 +62,7 @@
                             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700
                             sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:bg-dark-900
                             dark:hover:bg-blue-700 dark:focus:ring-offset-dark-900">
-                            Cancel
+                            {{ $t('cancel') }}
                         </button>
                     </div>
                 </div>

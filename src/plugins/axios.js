@@ -8,7 +8,7 @@ export default {
         Vue.prototype.$axios = (param) => {
             const apiBaseUrl = process.env.VUE_APP_API_URL;
             const apiKey = process.env.VUE_APP_API_KEY;
-            const url = `${apiBaseUrl}/${param}&appid=${apiKey}&units=metric`;
+            const url = `${apiBaseUrl}/${param}&appid=${apiKey}&units=metric&lang=id`;
             return axios(url);
         };
         installed = true;

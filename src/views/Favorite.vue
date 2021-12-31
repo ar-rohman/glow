@@ -4,7 +4,7 @@
             @closeModal="showModal = false"
             @deleteLocation="deleteFavorited" />
         <div class="mb-4">
-            <p class="text-lg font-bold">Favorite Locations</p>
+            <p class="text-lg font-bold">{{ $t('favoritePageTitle') }}</p>
         </div>
         <div>
             <div class="shadow-md border border-gray-100 overflow-hidden rounded-lg min-w-min
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="py-4 px-6" v-else>There are no favorite locations</div>
+                <div class="py-4 px-6" v-else>{{ $t('noFavorite') }}</div>
             </div>
         </div>
     </div>
@@ -74,8 +74,8 @@ export default {
             this.showModal = false;
             this.$alert({
                 type: 'success',
-                title: 'Success!',
-                text: `${city} removed from favorite`,
+                title: this.$t('alertSuccess'),
+                text: `${city} ${this.$t('removeFavoriteMsg')}`,
                 group: 'indexed-db',
             });
         },

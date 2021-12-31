@@ -3,10 +3,10 @@
         <div v-if="dailyData.length !== 0">
             <div class="mb-4">
                 <p class="text-lg font-bold">
-                    Hourly weather forecast for {{ city | titleCase }}
+                    {{ $t('dailyPageTitle') }} {{ city | titleCase }}
                 </p>
                 <p class="text-xs">
-                    Last updated {{ timeFromNow(timestamp) }}
+                    {{ $t('lastUpdated') }} {{ timeFromNow(timestamp) }}
                 </p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -34,43 +34,43 @@
                         </div>
                         <div class="grid grid-cols-auto-fill gap-4 pt-4">
                             <div>
-                                <p class="text-xs text-gray-400">Pressure</p>
+                                <p class="text-xs text-gray-400">{{ $t('pressure') }}</p>
                                 <p>{{ daily.pressure }} hPa</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Humidity</p>
+                                <p class="text-xs text-gray-400">{{ $t('humidity') }}</p>
                                 <p>{{ daily.humidity }}%</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Cloudiness</p>
+                                <p class="text-xs text-gray-400">{{ $t('cloudiness') }}</p>
                                 <p>{{ daily.clouds }}%</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">UV Index</p>
+                                <p class="text-xs text-gray-400">{{ $t('uvIndex') }}</p>
                                 <p>{{ daily.uvi.toFixed() }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Wind Speed</p>
+                                <p class="text-xs text-gray-400">{{ $t('windSpeed') }}</p>
                                 <p>{{ kmph(daily.wind_speed) }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Dew Point</p>
+                                <p class="text-xs text-gray-400">{{ $t('dewPoint') }}</p>
                                 <p>{{ temperature(daily.dew_point, tempUnit) }}&deg;</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Sunrise</p>
+                                <p class="text-xs text-gray-400">{{ $t('sunrise') }}</p>
                                 <p>{{ time(daily.sunrise, timezone) }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Sunset</p>
+                                <p class="text-xs text-gray-400">{{ $t('sunset') }}</p>
                                 <p>{{ time(daily.sunset, timezone) }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Moonrise</p>
+                                <p class="text-xs text-gray-400">{{ $t('moonrise') }}</p>
                                 <p>{{ time(daily.moonrise, timezone) }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Moonset</p>
+                                <p class="text-xs text-gray-400">{{ $t('moonset') }}</p>
                                 <p>{{ time(daily.moonset, timezone) }}</p>
                             </div>
                         </div>
@@ -108,7 +108,7 @@ export default {
         if (this.dailyData.length === 0) {
             this.errorData = {
                 cod: 404,
-                message: 'Sorry, the page you requested could not be found.',
+                message: this.$t('pageNotFound'),
             };
         }
     },

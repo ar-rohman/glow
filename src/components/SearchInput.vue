@@ -11,7 +11,7 @@
                     </svg>
                 </div>
             </span>
-            <input type="text" placeholder="Search city..." id="search"
+            <input type="text" :placeholder="$t('searchInputPlaceholder')" id="search"
                 class="appearance-none border border-gray-300 w-full py-2 px-10 text-gray-300
                 placeholder-gray-400 shadow-sm rounded-lg text-base focus:outline-none focus:ring-2
                 focus:ring-blue-700 focus:border-transparent focus:text-gray-700 dark:bg-dark-900

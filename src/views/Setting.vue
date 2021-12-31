@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="mb-4">
-            <p class="text-lg font-bold">Settings</p>
+            <p class="text-lg font-bold">{{ $t('setting') }}</p>
         </div>
         <div>
             <div class="shadow-md border border-gray-100 overflow-hidden rounded-lg min-w-min
@@ -10,10 +10,9 @@
                     <div class="group hover:bg-blue-50 dark:hover:bg-dark-800">
                         <div class="flex flex-col sm:flex-row py-4 px-6">
                             <div class="sm:w-1/3 pr-4">
-                                <p class="font-bold">Location</p>
+                                <p class="font-bold">{{ $t('location') }}</p>
                                 <p class="text-gray-500 text-sm dark:text-dark-400">
-                                    Set default location used at home page,
-                                    the default location is
+                                    {{ $t('locationInfo') }}
                                     <span class="font-bold">Jakarta</span>
                                 </p>
                             </div>
@@ -27,7 +26,7 @@
                                     dark:focus:border-transparent dark:group-hover:bg-dark-800"
                                     autocomplete="off"
                                     :class="inputClassBind" v-model="location"
-                                    placeholder="Type location then enter..."
+                                    :placeholder="$t('locationInputPlaceholder')"
                                     @change="checkLocation">
                                 <p class="my-2 font-bold"
                                     :class="[isLocationExist ? 'text-green-500' : 'text-red-500']">
@@ -41,7 +40,7 @@
                                     focus:outline-none focus:ring-2 focus:ring-offset-2
                                     focus:ring-blue-700 sm:w-auto sm:text-sm
                                     dark:focus:ring-offset-dark-900">
-                                    Save location
+                                    {{ $t('saveLocation') }}
                                 </button>
                             </div>
                         </div>
@@ -80,7 +79,7 @@
                     <div class="hover:bg-blue-50 dark:hover:bg-dark-800">
                         <div class="flex flex-col sm:flex-row py-4 px-6">
                             <div class="sm:w-1/3">
-                                <p class="font-bold">Theme</p>
+                                <p class="font-bold">{{ $t('theme') }}</p>
                             </div>
                             <div class="flex flex-col">
                                 <div class="inline-flex items-center mt-2">
@@ -92,7 +91,9 @@
                                         value="default"
                                         v-model="theme" @change="setTheme"
                                         :checked="theme === 'default'">
-                                    <label for="default" class="ml-2">System default</label>
+                                    <label for="default" class="ml-2">
+                                        {{ $t('systemDefault') }}
+                                    </label>
                                 </div>
                                 <div class="inline-flex items-center mt-2">
                                     <input type="radio" name="theme" id="dark"
@@ -103,7 +104,7 @@
                                         value="dark"
                                         v-model="theme" @change="setTheme"
                                         :checked="theme === 'dark'">
-                                    <label for="dark" class="ml-2">Dark</label>
+                                    <label for="dark" class="ml-2">{{ $t('dark') }}</label>
                                 </div>
                                 <div class="inline-flex items-center mt-2">
                                     <input type="radio" name="theme" id="light"
@@ -113,7 +114,7 @@
                                         dark:checked:border-current" value="light"
                                         v-model="theme" @change="setTheme"
                                         :checked="theme === 'light'">
-                                    <label for="light" class="ml-2">Light</label>
+                                    <label for="light" class="ml-2">{{ $t('light') }}</label>
                                 </div>
                             </div>
                         </div>
@@ -188,8 +189,8 @@ export default {
                 });
                 this.$alert({
                     type: 'success',
-                    title: 'Success!',
-                    text: `Default location changed to ${this.location}`,
+                    title: this.$t('alertSuccess'),
+                    text: `${this.$t('defaultLocationMessage')} ${this.location}`,
                     group: 'indexed-db',
                 });
                 this.isLocationExist = false;
@@ -203,7 +204,7 @@ export default {
                         const { cod } = response.data;
                         if (Number(cod) === 200) {
                             this.isLocationExist = true;
-                            this.errorMessage = `${this.location} is found!`;
+                            this.errorMessage = `${this.location} ${this.$t('isFound')}`;
                         }
                     })
                     .catch((error) => {
@@ -211,9 +212,9 @@ export default {
                         if (error.response) {
                             const { cod } = error.response.data;
                             if (Number(cod) === 404) {
-                                this.errorMessage = `${this.location} isn't found!`;
+                                this.errorMessage = `${this.location} ${this.$t('isNotFound')}`;
                             } else {
-                                this.errorMessage = 'Something went wrong, please try again';
+                                this.errorMessage = this.$t('error');
                             }
                         } else {
                             this.errorMessage = error.toJSON().message;

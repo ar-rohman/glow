@@ -9,13 +9,14 @@
         <div v-if="weatherData">
             <div class="mb-4">
                 <p class="text-lg font-bold">
-                    Weather forecast for {{ weatherData.name }}, {{ weatherData.sys.country }}
+                    {{ $t('detailPageTitle') }} {{ weatherData.name }},
+                    {{ weatherData.sys.country }}
                 </p>
                 <p class="text-sm">
                     {{ currentFullDate(weatherData.timezone) }}
                 </p>
                 <p class="text-xs">
-                    Last updated {{ timeFromNow(weatherData.dt) }}
+                    {{ $t('lastUpdated') }} {{ timeFromNow(weatherData.dt) }}
                 </p>
             </div>
             <div class="flex justify-between mb-1">
@@ -29,7 +30,7 @@
                                 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1
                                 1 0 00-1 1v3M4 7h16" />
                         </svg>
-                        <p class="text-sm ml-0.5">Remove from favorite</p>
+                        <p class="text-sm ml-0.5">{{ $t('removeFavorite') }}</p>
                     </button>
                     <button class="flex text-blue-500 hover:text-blue-700"
                         @click="addToFavorite" v-else>
@@ -37,12 +38,12 @@
                             <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1
                                 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                         </svg>
-                        <p class="text-sm ml-0.5">Add to favorite</p>
+                        <p class="text-sm ml-0.5">{{ $t('addFavorite') }}</p>
                     </button>
                 </div>
                 <div class="flex text-blue-500 hover:text-blue-700 text-sm cursor-pointer"
                     @click="moreDetail">
-                    <p>More details</p>
+                    <p>{{ $t('moreDetails') }}</p>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586
                             10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1
@@ -70,7 +71,7 @@
                         </div>
                         <div class="flex justify-between mt-10">
                             <div>
-                                <p>Real Feel</p>
+                                <p>{{ $t('realFeel') }}</p>
                                 <p class="text-2xl tracking-tighter">
                                     {{ temperature(weatherData.main.feels_like, tempUnit) }}&deg;
                                 </p>
@@ -84,51 +85,51 @@
                         rounded-lg w-full sm:w-1/2 dark:border-dark-700 dark:shadow-dark-md">
                         <div class="flex justify-between mb-3">
                             <div>
-                                <p class="text-gray-400 text-xs">Pressure</p>
+                                <p class="text-gray-400 text-xs">{{ $t('pressure') }}</p>
                                 <p>{{ weatherData.main.pressure }} hPa</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-gray-400 text-xs">Wind Speed</p>
+                                <p class="text-gray-400 text-xs">{{ $t('windSpeed') }}</p>
                                 <p>{{ kmph(weatherData.wind.speed) }}</p>
                             </div>
                         </div>
                         <div class="flex justify-between mb-3">
                             <div>
-                                <p class="text-gray-400 text-xs">Humidity</p>
+                                <p class="text-gray-400 text-xs">{{ $t('humidity') }}</p>
                                 <p>{{ weatherData.main.humidity }}%</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-gray-400 text-xs">Cloudiness</p>
+                                <p class="text-gray-400 text-xs">{{ $t('cloudiness') }}</p>
                                 <p>{{ weatherData.clouds.all }}%</p>
                             </div>
                         </div>
                         <div class="flex justify-between mb-3">
                             <div>
-                                <p class="text-gray-400 text-xs">Visibility</p>
+                                <p class="text-gray-400 text-xs">{{ $t('visibility') }}</p>
                                 <p>{{ mtokm(weatherData.visibility) }}</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-gray-400 text-xs">Timezone</p>
+                                <p class="text-gray-400 text-xs">{{ $t('timezone') }}</p>
                                 <p>{{ timezone(weatherData.timezone) }}</p>
                             </div>
                         </div>
                         <div class="flex justify-between mb-3">
                             <div>
-                                <p class="text-gray-400 text-xs">Sunrise</p>
+                                <p class="text-gray-400 text-xs">{{ $t('sunrise') }}</p>
                                 <p>{{ time(weatherData.sys.sunrise, weatherData.timezone) }}</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-gray-400 text-xs">Sunset </p>
+                                <p class="text-gray-400 text-xs">{{ $t('sunset') }} </p>
                                 <p>{{ time(weatherData.sys.sunset, weatherData.timezone) }}</p>
                             </div>
                         </div>
                         <div class="flex justify-between">
                             <div>
-                                <p class="text-gray-400 text-xs">Latitude</p>
+                                <p class="text-gray-400 text-xs">{{ $t('latitude') }}</p>
                                 <p>{{ weatherData.coord.lat }}</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-gray-400 text-xs">Longitude</p>
+                                <p class="text-gray-400 text-xs">{{ $t('longitude') }}</p>
                                 <p>{{ weatherData.coord.lon }}</p>
                             </div>
                         </div>
@@ -205,7 +206,7 @@ export default {
                         if (data.cod === '404') {
                             this.errorData = {
                                 cod: 404,
-                                message: `Sorry, we can't found city with keyword "${this.keyword}" , please try another keywords.`,
+                                message: `${this.$t('keywordNotFoud1')} "${this.keyword}", ${this.$t('keywordNotFoud2')}`,
                             };
                         } else {
                             this.errorData = data;
@@ -233,8 +234,8 @@ export default {
             this.addFavorite(this.weatherData.name);
             this.$alert({
                 type: 'success',
-                title: 'Success!',
-                text: `${this.weatherData.name} added to favorite`,
+                title: this.$t('alertSuccess'),
+                text: `${this.weatherData.name} ${this.$t('addFavoriteMsg')}`,
                 group: 'indexed-db',
             });
         },
@@ -242,8 +243,8 @@ export default {
             this.removeFavorite(this.weatherData.name);
             this.$alert({
                 type: 'success',
-                title: 'Success!',
-                text: `${this.weatherData.name} removed from favorite`,
+                title: this.$t('alertSuccess'),
+                text: `${this.weatherData.name} ${this.$t('removeFavoriteMsg')}`,
                 group: 'indexed-db',
             });
         },

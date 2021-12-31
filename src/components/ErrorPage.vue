@@ -62,7 +62,7 @@ export default {
                 this.errorMessage = 'Sorry, your request could not be processed';
             } else if (Number(this.cod) === 404) {
                 this.errorType = 'Not Found';
-                this.errorMessage = this.message || 'Sorry, the page you requested are not found.';
+                this.errorMessage = this.message || this.$t('pageNotFound');
             } else if (Number(this.cod) === 429) {
                 this.errorType = 'Too Many Requests';
                 this.errorMessage = 'Sorry, we have recieved too many requests and reached our limit, please try again in one minute.';
