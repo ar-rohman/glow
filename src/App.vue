@@ -31,6 +31,7 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
 import Database from '@/storage/storageIdb';
+import i18n from '@/plugins/i18n';
 
 export default {
     name: 'App',
@@ -46,6 +47,7 @@ export default {
     },
     created() {
         this.getTheme();
+        this.getLanguage();
         document.addEventListener('swUpdated', this.updateAvailable, { once: true });
     },
     mounted() {
@@ -77,6 +79,12 @@ export default {
                 this.theme = idbTheme.value;
             }
             this.darkMode();
+        },
+        async getLanguage() {
+            const idbLanguage = await Database.getData(this.objectStoreSetting, 'language');
+            if (idbLanguage) {
+                i18n.locale = idbLanguage.value;
+            }
         },
         updateAvailable() {
             this.$alert({

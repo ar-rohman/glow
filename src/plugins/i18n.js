@@ -47,6 +47,7 @@ const messages = {
         saveLocation: 'Save location',
         temperature: 'Temperature',
         theme: 'Theme',
+        language: 'Language',
         systemDefault: 'System default',
         dark: 'Dark',
         light: 'Light',
@@ -136,6 +137,7 @@ const messages = {
         saveLocation: 'Simpan lokasi',
         temperature: 'Suhu',
         theme: 'Tema',
+        language: 'Bahasa',
         systemDefault: 'Bawaan sistem',
         dark: 'Gelap',
         light: 'Terang',
@@ -183,9 +185,8 @@ const messages = {
         pageNotFound: 'Maaf, Halaman tidak ditemukan.',
     },
 };
-
 const i18n = new VueI18n({
-    locale: 'id',
+    locale: 'en',
     fallbackLocale: 'en',
     messages,
 });
