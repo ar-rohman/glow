@@ -119,6 +119,39 @@
                             </div>
                         </div>
                     </div>
+                    <div class="hover:bg-blue-50 dark:hover:bg-dark-800">
+                        <div class="flex flex-col sm:flex-row py-4 px-6">
+                            <div class="sm:w-1/3">
+                                <p class="font-bold">{{ $t('language') }}</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="inline-flex items-center mt-2">
+                                    <input type="radio" name="language" id="en"
+                                        class="h-5 w-5 text-blue-700 dark:bg-dark-900
+                                        dark:checked:bg-blue-700 dark:border-dark-200
+                                        dark:focus:ring-offset-dark-900
+                                        dark:checked:border-current"
+                                        value="en"
+                                        v-model="language" @change="setLanguage"
+                                        :checked="language === 'en'">
+                                    <label for="en" class="ml-2">
+                                        English
+                                    </label>
+                                </div>
+                                <div class="inline-flex items-center mt-2">
+                                    <input type="radio" name="language" id="id"
+                                        class="h-5 w-5 text-blue-700 dark:bg-dark-900
+                                        dark:checked:bg-blue-700 dark:border-dark-200
+                                        dark:focus:ring-offset-dark-900
+                                        dark:checked:border-current"
+                                        value="id"
+                                        v-model="language" @change="setLanguage"
+                                        :checked="language === 'id'">
+                                    <label for="id" class="ml-2">Bahasa Indonesia</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,6 +160,7 @@
 
 <script>
 import Database from '@/storage/storageIdb';
+import i18n from '@/plugins/i18n';
 
 export default {
     name: 'Setting',
@@ -135,6 +169,7 @@ export default {
             temp: 'celsius',
             location: 'Jakarta',
             theme: 'default',
+            language: 'en',
             isLocationExist: false,
             errorMessage: null,
             objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
@@ -144,6 +179,7 @@ export default {
         this.getLocation();
         this.getTemp();
         this.getTheme();
+        this.getLanguage();
     },
     methods: {
         async getTheme() {
@@ -221,6 +257,19 @@ export default {
                         }
                     });
             }
+        },
+        async getLanguage() {
+            const idbLanguage = await Database.getData(this.objectStoreSetting, 'language');
+            if (idbLanguage) {
+                this.language = idbLanguage.value;
+            }
+        },
+        setLanguage() {
+            Database.updateData(this.objectStoreSetting, {
+                name: 'language',
+                value: this.language,
+            });
+            i18n.locale = this.language;
         },
     },
     computed: {
