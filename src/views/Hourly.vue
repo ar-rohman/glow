@@ -35,7 +35,7 @@
                         </div>
                         <div class="grid grid-cols-auto-fill gap-4 pt-4">
                             <div>
-                                <p class="text-xs text-gray-400">{{ $t('realFeel') }}</p>
+                                <p class="text-xs text-gray-400">{{ $t('feelLike') }}</p>
                                 <p>{{ temperature(hourly.feels_like, tempUnit) }}&deg;</p>
                             </div>
                             <div>

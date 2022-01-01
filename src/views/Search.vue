@@ -71,7 +71,7 @@
                         </div>
                         <div class="flex justify-between mt-10">
                             <div>
-                                <p>{{ $t('realFeel') }}</p>
+                                <p>{{ $t('feelLike') }}</p>
                                 <p class="text-2xl tracking-tighter">
                                     {{ temperature(weatherData.main.feels_like, tempUnit) }}&deg;
                                 </p>

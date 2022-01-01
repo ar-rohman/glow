@@ -51,7 +51,7 @@
                                     {{ temperature(hourly.temp, tempUnit) }}&deg;
                                 </div>
                                 <div class="flex flex-col">
-                                    <div class="text-xs text-gray-400">{{ $t('realFeel') }}</div>
+                                    <div class="text-xs text-gray-400">{{ $t('feelLike') }}</div>
                                     <div>{{ temperature(hourly.feels_like, tempUnit) }}&deg;</div>
                                 </div>
                             </div>

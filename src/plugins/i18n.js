@@ -9,7 +9,7 @@ const messages = {
         homePageTitle: 'Current weather forecast',
         lastUpdated: 'Last updated',
         moreDetails: 'More details',
-        realFeel: 'Real Feel',
+        feelLike: 'Feel Like',
         pressure: 'Pressure',
         windSpeed: 'Wind Speed',
         humidity: 'Humidity',
@@ -98,12 +98,12 @@ const messages = {
         // Home page
         homePageTitle: 'Prakiraan cuaca saat ini',
         lastUpdated: 'Pembaruan terakhir',
-        moreDetails: 'Keterangan lebih lanjut',
-        realFeel: 'Yang Terasa', //
+        moreDetails: 'Selengkapnya',
+        feelLike: 'Terasa Seperti',
         pressure: 'Tekanan',
         windSpeed: 'Kecapatan Angin',
         humidity: 'Kelembaban',
-        cloudiness: 'Keadaan Berawan', // //
+        cloudiness: 'Awan',
         visibility: 'Jarak Pandang',
         timezone: 'Zona Waktu',
         sunrise: 'Matahari Terbit',
