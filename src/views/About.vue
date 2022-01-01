@@ -5,18 +5,16 @@
         </div>
         <div class="dark:text-dark-300">
             <p>{{ $t('aboutDesc') }}</p>
-            <p>
+            <p class="mt-4">
                 {{ $t('dataSource') }}
                 <a href="https://openweathermap.org/" class="text-blue-600 hover:text-blue-800"
-                    target="_blank">OpenWeather</a>.
+                    target="_blank" rel="noopener">OpenWeather</a>.
             </p>
-            <p class="my-4">
-                {{ $t('developedBy') }}
+            <div class="fixed bottom-4 text-sm">
+                {{ $t('copyright') }} &copy; {{ copyrightYear }}
                 <a href="https://github.com/ar-rohman" class="text-blue-600 hover:text-blue-800"
-                    target="_blank">Rohman</a>
-            </p>
-            <p class="mb-4">{{ $t('version') }} {{ version }}</p>
-            <p>{{ $t('copyright') }} &copy; 2021</p>
+                    target="_blank" rel="noopener">Rohman</a> | v{{ version }}
+            </div>
         </div>
     </div>
 </template>
@@ -30,6 +28,12 @@ export default {
         return {
             version,
         };
+    },
+    computed: {
+        copyrightYear() {
+            const now = (new Date()).getFullYear();
+            return `2021-${now}`;
+        },
     },
 };
 </script>

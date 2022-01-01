@@ -57,8 +57,6 @@ const messages = {
         // About page
         aboutDesc: 'Glow (stands for Global Weather) is an application that provides weather data from any location on Earth.',
         dataSource: 'All weather data taken from',
-        developedBy: 'Developed by',
-        version: 'Version',
         copyright: 'Copyright',
 
         // Search Page
@@ -145,10 +143,8 @@ const messages = {
         isNotFound: 'tidak ditemukan!',
 
         // About page
-        aboutDesc: 'Glow (singkatan dari Global Weather) adalah sebuah aplikasi yang menyediakan data cuaca dari berbagai lokasi di bumi.',
+        aboutDesc: 'Glow (singkatan dari Global Weather) adalah sebuah aplikasi yang menyediakan data cuaca dari berbagai lokasi di bumi ini.',
         dataSource: 'Semua data cuaca di ambil dari',
-        developedBy: 'Dikembangkan oleh',
-        version: 'Versi',
         copyright: 'Hak Cipta',
 
         // Search Page
