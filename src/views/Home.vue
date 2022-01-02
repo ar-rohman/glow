@@ -33,7 +33,7 @@
                         rounded-lg w-full sm:w-1/2 dark:border-dark-700 dark:shadow-dark-md">
                         <div class="flex justify-between">
                             <p>{{ weatherData.name }}</p>
-                            <p>{{ adjective(weatherData.weather[0].main) }}</p>
+                            <p>{{ weatherData.sys.country }}</p>
                         </div>
                         <div class="flex flex-col justify-center w-full">
                             <div class="flex justify-center h-24">
