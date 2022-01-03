@@ -257,7 +257,7 @@ export default {
         },
         async getLanguage() {
             const idbLocation = await Database.getData(this.objectStoreSetting, 'language');
-            this.language = idbLocation.value;
+            if (idbLocation) this.language = idbLocation.value;
         },
     },
 };

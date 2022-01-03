@@ -10,7 +10,7 @@
                 <a href="https://openweathermap.org/" class="text-blue-600 hover:text-blue-800"
                     target="_blank" rel="noopener">OpenWeather</a>.
             </p>
-            <div class="fixed bottom-4 text-sm">
+            <div class="fixed bottom-20 sm:bottom-4 text-sm">
                 {{ $t('copyright') }} &copy; {{ copyrightYear }}
                 <a href="https://github.com/ar-rohman" class="text-blue-600 hover:text-blue-800"
                     target="_blank" rel="noopener">Rohman</a> | v{{ version }}
