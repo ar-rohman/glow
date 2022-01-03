@@ -11,6 +11,7 @@ All weather data taken from <a href="https://openweathermap.org/" target="_blank
 - Search weather forecast by city
 - Set default city & temperature
 - Support dark mode
+- Bilingual
 
 ## Changelog
 
