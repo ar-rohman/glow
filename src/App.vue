@@ -93,7 +93,7 @@ export default {
                 closeButton: true,
                 title: `
                     <p class="font-normal pr-4">
-                        New content is available, please refresh to load it.
+                        ${this.$t('newContentMsg')}.
                     </p>
                 `,
                 text: `
@@ -103,7 +103,7 @@ export default {
                             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:w-auto
                             sm:text-sm dark:focus:ring-offset-dark-900"
                             onclick="window.location.reload()">
-                            Refresh
+                            ${this.$t('refresh')}
                         </button>
                     </div>
                 `,
@@ -122,8 +122,8 @@ export default {
                     duration: -1,
                     closeButton: true,
                     type: 'warning',
-                    title: 'You are offline',
-                    text: 'Some features may not working properly, please check your internet connection.',
+                    title: this.$t('offlineTitle'),
+                    text: this.$t('offlineMsg'),
                 });
             }
         },

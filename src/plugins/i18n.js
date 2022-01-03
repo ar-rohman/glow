@@ -85,6 +85,10 @@ const messages = {
         defaultLocationMessage: 'Default location changed to',
         removeFavoriteMsg: 'removed from favorite',
         addFavoriteMsg: 'added to favorite',
+        offlineTitle: 'You are offline',
+        offlineMsg: 'Some features may not working properly, please check your internet connection.',
+        refresh: 'Refresh',
+        newContentMsg: 'New content is available, please refresh to load it',
 
         // Error message
         error: 'Something went wrong, please try again',
@@ -173,6 +177,10 @@ const messages = {
         defaultLocationMessage: 'Lokasi bawaan diganti ke',
         removeFavoriteMsg: 'dihapus dari daftar favorit',
         addFavoriteMsg: 'ditambahkan ke daftar favorit',
+        offlineTitle: 'Tidak ada jaringan internet',
+        offlineMsg: 'Beberapa fitur mungkin tidak berjalan semestinya, silahkan periksa koneksi internet anda.',
+        refresh: 'Segarkan',
+        newContentMsg: 'Kontent baru tersedia, harap segarkan untuk memuatnya.',
 
         // Error message
         error: 'Terjadi kesalahan, silahkan coba kembali',
