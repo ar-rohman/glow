@@ -13,7 +13,7 @@
             <div class="fixed bottom-20 sm:bottom-4 text-sm">
                 {{ $t('copyright') }} &copy; {{ copyrightYear }}
                 <a href="https://github.com/ar-rohman" class="text-blue-600 hover:text-blue-800"
-                    target="_blank" rel="noopener">Rohman</a> | v{{ version }}
+                    target="_blank" rel="noopener">Rohman</a> {{ getVersion }}
             </div>
         </div>
     </div>
@@ -33,6 +33,10 @@ export default {
         copyrightYear() {
             const now = (new Date()).getFullYear();
             return `2021-${now}`;
+        },
+        getVersion() {
+            const versionText = version ? ` | v${version}` : '';
+            return versionText;
         },
     },
 };
