@@ -180,7 +180,7 @@ const messages = {
         offlineTitle: 'Tidak ada jaringan internet',
         offlineMsg: 'Beberapa fitur mungkin tidak berjalan semestinya, silahkan periksa koneksi internet anda.',
         refresh: 'Segarkan',
-        newContentMsg: 'Kontent baru tersedia, harap segarkan untuk memuatnya.',
+        newContentMsg: 'Konten baru tersedia, harap segarkan untuk memuatnya.',
 
         // Error message
         error: 'Terjadi kesalahan, silahkan coba kembali',
