@@ -12,10 +12,10 @@
                     {{ $t('detailPageTitle') }} {{ keyword | titleCase }}
                 </p>
                 <p class="text-sm">
-                    {{ currentFullDate(weatherData.timezone) }}
+                    {{ currentFullDate(language) }}
                 </p>
                 <p class="text-xs">
-                    {{ $t('lastUpdated') }} {{ timeFromNow(weatherData.dt) }}
+                    {{ $t('lastUpdated') }} {{ timeFromNow(weatherData.dt, language) }}
                 </p>
             </div>
             <div class="flex justify-between mb-1">
@@ -160,10 +160,12 @@ export default {
             errorData: null,
             tempUnit: 'celsius',
             objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
+            language: 'en',
         };
     },
     async created() {
         this.getTempUnit();
+        this.getLanguage();
         this.keyword = this.$route.query.q;
         await this.getData();
     },
@@ -252,6 +254,10 @@ export default {
             if (idbTemp) {
                 this.tempUnit = idbTemp.value;
             }
+        },
+        async getLanguage() {
+            const idbLocation = await Database.getData(this.objectStoreSetting, 'language');
+            this.language = idbLocation.value;
         },
     },
 };

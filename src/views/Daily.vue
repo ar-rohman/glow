@@ -6,7 +6,7 @@
                     {{ $t('dailyPageTitle') }} {{ city | titleCase }}
                 </p>
                 <p class="text-xs">
-                    {{ $t('lastUpdated') }} {{ timeFromNow(timestamp) }}
+                    {{ $t('lastUpdated') }} {{ timeFromNow(timestamp, language) }}
                 </p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -15,7 +15,9 @@
                     v-for="daily in dailyData" :key="daily.dt">
                     <div class="space-y-4">
                         <div class="grid justify-center">
-                            <div>{{ threeLetterDay(daily.dt, timezone) }}</div>
+                            <div class="text-center">
+                                {{ threeLetterDay(daily.dt, timezone, language) }}
+                            </div>
                             <div class="grid justify-center">
                                 <img :src="`http://openweathermap.org/img/wn/${daily.weather[0].icon}@2x.png`"
                                     :alt="`${daily.weather[0].description}`" class="h-24 w-24">
@@ -101,10 +103,12 @@ export default {
             errorData: null,
             tempUnit: 'celsius',
             objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
+            language: 'en',
         };
     },
     created() {
         this.getTempUnit();
+        this.getLanguage();
         if (this.dailyData.length === 0) {
             this.errorData = {
                 cod: 404,
@@ -126,6 +130,10 @@ export default {
             if (idbTemp) {
                 this.tempUnit = idbTemp.value;
             }
+        },
+        async getLanguage() {
+            const idbLocation = await Database.getData(this.objectStoreSetting, 'language');
+            this.language = idbLocation.value;
         },
     },
 };

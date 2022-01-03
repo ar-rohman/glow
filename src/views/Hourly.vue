@@ -6,7 +6,7 @@
                     {{ $t('hourlyPageTitle') }} {{ city | titleCase }}
                 </p>
                 <p class="text-xs">
-                    {{ $t('lastUpdated') }} {{ timeFromNow(timestamp) }}
+                    {{ $t('lastUpdated') }} {{ timeFromNow(timestamp, language) }}
                 </p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -94,10 +94,12 @@ export default {
             errorData: null,
             tempUnit: 'celsius',
             objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
+            language: 'en',
         };
     },
     created() {
         this.getTempUnit();
+        this.getLanguage();
         if (this.hourlyData.length === 0) {
             this.errorData = {
                 cod: 404,
@@ -119,6 +121,10 @@ export default {
             if (idbTemp) {
                 this.tempUnit = idbTemp.value;
             }
+        },
+        async getLanguage() {
+            const idbLocation = await Database.getData(this.objectStoreSetting, 'language');
+            this.language = idbLocation.value;
         },
     },
 };

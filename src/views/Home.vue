@@ -10,10 +10,10 @@
             <div class="mb-4">
                 <p class="text-lg font-bold">{{ $t('homePageTitle') }}</p>
                 <p class="text-sm">
-                    {{ currentFullDate(weatherData.timezone) }}
+                    {{ currentFullDate(language) }}
                 </p>
                 <p class="text-xs">
-                    {{ $t('lastUpdated') }} {{ timeFromNow(weatherData.dt) }}
+                    {{ $t('lastUpdated') }} {{ timeFromNow(weatherData.dt, language) }}
                 </p>
             </div>
             <div class="flex justify-end mb-1">
@@ -137,11 +137,13 @@ export default {
             weatherData: null,
             errorData: null,
             objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
+            language: 'en',
         };
     },
     created() {
         this.getLocation();
         this.getTempUnit();
+        this.getLanguage();
     },
     methods: {
         async getLocation() {
@@ -151,6 +153,10 @@ export default {
             }
             this.isOnline();
             this.getData();
+        },
+        async getLanguage() {
+            const idbLocation = await Database.getData(this.objectStoreSetting, 'language');
+            this.language = idbLocation.value;
         },
         isOnline() {
             window.addEventListener('online', () => {
