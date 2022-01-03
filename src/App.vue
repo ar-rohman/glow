@@ -31,6 +31,7 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
 import Database from '@/storage/storageIdb';
+import i18n from '@/plugins/i18n';
 
 export default {
     name: 'App',
@@ -46,6 +47,7 @@ export default {
     },
     created() {
         this.getTheme();
+        this.getLanguage();
         document.addEventListener('swUpdated', this.updateAvailable, { once: true });
     },
     mounted() {
@@ -78,6 +80,12 @@ export default {
             }
             this.darkMode();
         },
+        async getLanguage() {
+            const idbLanguage = await Database.getData(this.objectStoreSetting, 'language');
+            if (idbLanguage) {
+                i18n.locale = idbLanguage.value;
+            }
+        },
         updateAvailable() {
             this.$alert({
                 group: 'swUpdate',
@@ -85,7 +93,7 @@ export default {
                 closeButton: true,
                 title: `
                     <p class="font-normal pr-4">
-                        New content is available, please refresh to load it.
+                        ${this.$t('newContentMsg')}.
                     </p>
                 `,
                 text: `
@@ -95,7 +103,7 @@ export default {
                             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 sm:w-auto
                             sm:text-sm dark:focus:ring-offset-dark-900"
                             onclick="window.location.reload()">
-                            Refresh
+                            ${this.$t('refresh')}
                         </button>
                     </div>
                 `,
@@ -114,8 +122,8 @@ export default {
                     duration: -1,
                     closeButton: true,
                     type: 'warning',
-                    title: 'You are offline',
-                    text: 'Some features may not working properly, please check your internet connection.',
+                    title: this.$t('offlineTitle'),
+                    text: this.$t('offlineMsg'),
                 });
             }
         },

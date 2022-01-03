@@ -9,18 +9,18 @@
         <div v-if="weatherData">
             <div class="mb-4">
                 <p class="text-lg font-bold">
-                    Weather forecast for {{ city | titleCase }}
+                    {{ $t('detailPageTitle') }} {{ city | titleCase }}
                 </p>
                 <p class="text-xs">
-                   Last updated {{ timeFromNow(timestamp) }}
+                   {{ $t('lastUpdated') }} {{ timeFromNow(timestamp, language) }}
                 </p>
             </div>
             <div class="mb-8">
                 <div class="flex justify-between mb-1">
-                    <div class="font-bold">Hourly</div>
+                    <div class="font-bold">{{ $t('hourly') }}</div>
                     <div class="flex text-blue-500 hover:text-blue-700 text-sm cursor-pointer"
                         @click="hourlyDetail">
-                        <p>More details</p>
+                        <p>{{ $t('moreDetails') }}</p>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586
                                 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1
@@ -51,17 +51,17 @@
                                     {{ temperature(hourly.temp, tempUnit) }}&deg;
                                 </div>
                                 <div class="flex flex-col">
-                                    <div class="text-xs text-gray-400">Real Feel</div>
+                                    <div class="text-xs text-gray-400">{{ $t('feelLike') }}</div>
                                     <div>{{ temperature(hourly.feels_like, tempUnit) }}&deg;</div>
                                 </div>
                             </div>
                             <div class="flex justify-between w-full">
                                 <div class="flex flex-col">
-                                    <div class="text-xs text-gray-400">Wind Speed</div>
+                                    <div class="text-xs text-gray-400">{{ $t('windSpeed') }}</div>
                                     <div>{{ kmph(hourly.wind_speed) }}</div>
                                 </div>
                                 <div class="flex flex-col">
-                                    <div class="text-xs text-gray-400">Humidity</div>
+                                    <div class="text-xs text-gray-400">{{ $t('humidity') }}</div>
                                     <div>{{ hourly.humidity }}%</div>
                                 </div>
                             </div>
@@ -71,10 +71,10 @@
             </div>
             <div>
                 <div class="flex justify-between mb-1">
-                    <div class="font-bold">Daily</div>
+                    <div class="font-bold">{{ $t('daily') }}</div>
                     <div class="flex text-blue-500 hover:text-blue-700 text-sm cursor-pointer"
                         @click="dailyDetail">
-                        <p>More details</p>
+                        <p>{{ $t('moreDetails') }}</p>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586
                                 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1
@@ -89,7 +89,7 @@
                         v-for="daily in weatherData.daily" :key="daily.dt">
                         <div class="flex flex-col items-center space-y-4">
                             <div class="whitespace-nowrap">
-                                {{ threeLetterDay(daily.dt, weatherData.timezone_offset) }}
+                            {{ threeLetterDay(daily.dt, weatherData.timezone_offset, language) }}
                             </div>
                             <div class="flex justify-center h-24">
                                 <img :src="`http://openweathermap.org/img/wn/${daily.weather[0].icon}@2x.png`"
@@ -137,10 +137,12 @@ export default {
             errorData: null,
             tempUnit: 'celsius',
             objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
+            language: 'en',
         };
     },
     created() {
         this.getTempUnit();
+        this.getLanguage();
         this.isOnline();
         this.getData();
     },
@@ -178,7 +180,7 @@ export default {
                         if (data.cod === '404') {
                             this.errorData = {
                                 cod: 404,
-                                message: `Sorry, we can't found city with keyword "${this.keyword}", please try another keywords.`,
+                                message: `${this.$t('keywordNotFoud1')} "${this.keyword}", ${this.$t('keywordNotFoud2')}`,
                             };
                         } else {
                             this.errorData = data;
@@ -206,6 +208,10 @@ export default {
             if (idbTemp) {
                 this.tempUnit = idbTemp.value;
             }
+        },
+        async getLanguage() {
+            const idbLocation = await Database.getData(this.objectStoreSetting, 'language');
+            this.language = idbLocation.value;
         },
     },
 };

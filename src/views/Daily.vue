@@ -3,10 +3,10 @@
         <div v-if="dailyData.length !== 0">
             <div class="mb-4">
                 <p class="text-lg font-bold">
-                    Hourly weather forecast for {{ city | titleCase }}
+                    {{ $t('dailyPageTitle') }} {{ city | titleCase }}
                 </p>
                 <p class="text-xs">
-                    Last updated {{ timeFromNow(timestamp) }}
+                    {{ $t('lastUpdated') }} {{ timeFromNow(timestamp, language) }}
                 </p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -15,7 +15,9 @@
                     v-for="daily in dailyData" :key="daily.dt">
                     <div class="space-y-4">
                         <div class="grid justify-center">
-                            <div>{{ threeLetterDay(daily.dt, timezone) }}</div>
+                            <div class="text-center">
+                                {{ threeLetterDay(daily.dt, timezone, language) }}
+                            </div>
                             <div class="grid justify-center">
                                 <img :src="`http://openweathermap.org/img/wn/${daily.weather[0].icon}@2x.png`"
                                     :alt="`${daily.weather[0].description}`" class="h-24 w-24">
@@ -34,43 +36,43 @@
                         </div>
                         <div class="grid grid-cols-auto-fill gap-4 pt-4">
                             <div>
-                                <p class="text-xs text-gray-400">Pressure</p>
+                                <p class="text-xs text-gray-400">{{ $t('pressure') }}</p>
                                 <p>{{ daily.pressure }} hPa</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Humidity</p>
+                                <p class="text-xs text-gray-400">{{ $t('humidity') }}</p>
                                 <p>{{ daily.humidity }}%</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Cloudiness</p>
+                                <p class="text-xs text-gray-400">{{ $t('cloudiness') }}</p>
                                 <p>{{ daily.clouds }}%</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">UV Index</p>
+                                <p class="text-xs text-gray-400">{{ $t('uvIndex') }}</p>
                                 <p>{{ daily.uvi.toFixed() }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Wind Speed</p>
+                                <p class="text-xs text-gray-400">{{ $t('windSpeed') }}</p>
                                 <p>{{ kmph(daily.wind_speed) }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Dew Point</p>
+                                <p class="text-xs text-gray-400">{{ $t('dewPoint') }}</p>
                                 <p>{{ temperature(daily.dew_point, tempUnit) }}&deg;</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Sunrise</p>
+                                <p class="text-xs text-gray-400">{{ $t('sunrise') }}</p>
                                 <p>{{ time(daily.sunrise, timezone) }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Sunset</p>
+                                <p class="text-xs text-gray-400">{{ $t('sunset') }}</p>
                                 <p>{{ time(daily.sunset, timezone) }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Moonrise</p>
+                                <p class="text-xs text-gray-400">{{ $t('moonrise') }}</p>
                                 <p>{{ time(daily.moonrise, timezone) }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Moonset</p>
+                                <p class="text-xs text-gray-400">{{ $t('moonset') }}</p>
                                 <p>{{ time(daily.moonset, timezone) }}</p>
                             </div>
                         </div>
@@ -101,14 +103,16 @@ export default {
             errorData: null,
             tempUnit: 'celsius',
             objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
+            language: 'en',
         };
     },
     created() {
         this.getTempUnit();
+        this.getLanguage();
         if (this.dailyData.length === 0) {
             this.errorData = {
                 cod: 404,
-                message: 'Sorry, the page you requested could not be found.',
+                message: this.$t('pageNotFound'),
             };
         }
     },
@@ -126,6 +130,10 @@ export default {
             if (idbTemp) {
                 this.tempUnit = idbTemp.value;
             }
+        },
+        async getLanguage() {
+            const idbLocation = await Database.getData(this.objectStoreSetting, 'language');
+            this.language = idbLocation.value;
         },
     },
 };

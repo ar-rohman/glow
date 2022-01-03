@@ -1,28 +1,33 @@
 // Return date & time to local city currently displayed
 const DateFormater = {
     install(Vue) {
-        Vue.prototype.currentFullDate = (timezone) => {
-            const newDate = Date.now();
-            const utcFullDate = new Date(newDate + (timezone * 1000));
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            const day = days[utcFullDate.getUTCDay()];
-            const date = (`0${utcFullDate.getUTCDate()}`).slice(-2);
-            const month = months[utcFullDate.getUTCMonth()];
-            const year = utcFullDate.getUTCFullYear();
-            const time = Vue.prototype.time((newDate / 1000), timezone);
-            const tz = Vue.prototype.timezone(timezone);
-            return `${day}, ${date} ${month} ${year} ${time} ${tz}`;
+        Vue.prototype.currentFullDate = (language) => {
+            const fullDate = new Date();
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone; // eg. Asia/Jakarta
+            const locale = language === 'id' ? 'id-ID' : navigator.language;
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour12: false,
+                hour: 'numeric',
+                minute: 'numeric',
+                timeZoneName: 'short',
+                timeZone: tz,
+            };
+            return (new Intl.DateTimeFormat(locale, options).format(fullDate));
         };
-        Vue.prototype.threeLetterDay = (timestamp, timezone) => {
+        Vue.prototype.threeLetterDay = (timestamp, timezone, language) => {
             const utcFullDate = new Date((timestamp * 1000) + (timezone * 1000));
-            const longDateString = utcFullDate.toUTCString();
-            const splitDate = longDateString.split(' ');
-            const day = splitDate[0];
-            const month = splitDate[1];
-            const date = splitDate[2];
-            const year = splitDate[3];
-            return `${day} ${date} ${month} ${year}`;
+            const options = {
+                weekday: 'short',
+                year: '2-digit',
+                month: 'short',
+                day: 'numeric',
+                timeZone: 'GMT',
+            };
+            return (new Intl.DateTimeFormat(language, options).format(utcFullDate));
         };
         Vue.prototype.shortDate = (timestamp, timezone) => {
             const utcFullDate = new Date((timestamp * 1000) + (timezone * 1000));
@@ -37,7 +42,7 @@ const DateFormater = {
             const minute = (`0${utcDate.getUTCMinutes()}`).slice(-2);
             return `${hour}:${minute}`;
         };
-        Vue.prototype.timeFromNow = (timestamp) => {
+        Vue.prototype.timeFromNow = (timestamp, language) => {
             const df = timestamp * 1000;
             const fromDate = new Date(df);
             const difference = fromDate - (new Date());
@@ -49,7 +54,7 @@ const DateFormater = {
                 minute: 1000 * 60,
                 second: 1000,
             };
-            const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+            const rtf = new Intl.RelativeTimeFormat(language, { numeric: 'auto' });
             let result;
             // eslint-disable-next-line no-restricted-syntax
             for (const unit in units) {

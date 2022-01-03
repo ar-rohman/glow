@@ -3,8 +3,11 @@
             inset-x-0 w-full sm:w-auto sm:bottom-auto sm:inset-x-auto sm:relative
             px-6 sm:px-0 py-2 sm:py-0 sm:mr-2 md:mr-8 border-t sm:border-none text-sm sm:text-base
             sm:max-w-max bg-white dark:bg-dark-900 dark:border-dark-700">
-        <div :class="{ 'text-blue-700': isActivePath('/') }">
-            <router-link to="/" class="flex flex-col items-center hover:text-blue-700">
+        <div :class="{ 'text-blue-500': isActivePath('/') }">
+            <router-link
+                to="/"
+                class="flex flex-col items-center hover:text-blue-600 focus:text-blue-700
+                    focus:outline-none">
                 <div class="sm:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
                         fill="currentColor" v-if="isActivePath('/')">
@@ -22,11 +25,14 @@
                             1m-6 0h6" />
                     </svg>
                 </div>
-                <p>Home</p>
+                <p>{{ $t('home') }}</p>
             </router-link>
         </div>
-        <div :class="{ 'text-blue-700': isActivePath('/favorite') }">
-            <router-link to="/favorite" class="flex flex-col items-center hover:text-blue-700">
+        <div :class="{ 'text-blue-500': isActivePath('/favorite') }">
+            <router-link
+                to="/favorite"
+                class="flex flex-col items-center hover:text-blue-600 focus:text-blue-700
+                    focus:outline-none">
                 <div class="sm:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
                         fill="currentColor"  v-if="isActivePath('/favorite')">
@@ -49,11 +55,14 @@
                             0 00.951-.69l1.519-4.674z" />
                     </svg>
                 </div>
-                <p>Favorite</p>
+                <p>{{ $t('favorite') }}</p>
             </router-link>
         </div>
-        <div :class="{ 'text-blue-700': isActivePath('/setting') }">
-            <router-link to="/setting" class="flex flex-col items-center hover:text-blue-700">
+        <div :class="{ 'text-blue-500': isActivePath('/setting') }">
+            <router-link
+                to="/setting"
+                class="flex flex-col items-center hover:text-blue-600 focus:text-blue-700
+                    focus:outline-none">
                 <div class="sm:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
                         fill="currentColor" v-if="isActivePath('/setting')">
@@ -83,12 +92,15 @@
                             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                 </div>
-                <p>Setting</p>
+                <p>{{ $t('setting') }}</p>
             </router-link>
         </div>
 
-        <div :class="{ 'text-blue-700': isActivePath('/about') }">
-            <router-link to="/about" class="flex flex-col items-center hover:text-blue-700">
+        <div :class="{ 'text-blue-500': isActivePath('/about') }">
+            <router-link
+                to="/about"
+                class="flex flex-col items-center hover:text-blue-600 focus:text-blue-700
+                    focus:outline-none">
                 <div class="sm:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
                         fill="currentColor" v-if="isActivePath('/about')">
@@ -103,7 +115,7 @@
                             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
-                <p>About</p>
+                <p>{{ $t('about') }}</p>
             </router-link>
         </div>
     </nav>

@@ -8,20 +8,18 @@
         </div>
         <div v-if="weatherData">
             <div class="mb-4">
-                <p class="text-lg font-bold">
-                    Current weather forecast
-                </p>
+                <p class="text-lg font-bold">{{ $t('homePageTitle') }}</p>
                 <p class="text-sm">
-                    {{ currentFullDate(weatherData.timezone) }}
+                    {{ currentFullDate(language) }}
                 </p>
                 <p class="text-xs">
-                    Last updated {{ timeFromNow(weatherData.dt) }}
+                    {{ $t('lastUpdated') }} {{ timeFromNow(weatherData.dt, language) }}
                 </p>
             </div>
             <div class="flex justify-end mb-1">
                 <div class="flex text-blue-500 hover:text-blue-700 text-sm cursor-pointer"
                     @click="moreDetail">
-                    <p>More details</p>
+                    <p>{{ $t('moreDetails') }}</p>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586
                             10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1
@@ -35,7 +33,7 @@
                         rounded-lg w-full sm:w-1/2 dark:border-dark-700 dark:shadow-dark-md">
                         <div class="flex justify-between">
                             <p>{{ weatherData.name }}</p>
-                            <p>{{ adjective(weatherData.weather[0].main) }}</p>
+                            <p>{{ weatherData.sys.country }}</p>
                         </div>
                         <div class="flex flex-col justify-center w-full">
                             <div class="flex justify-center h-24">
@@ -49,7 +47,7 @@
                         </div>
                         <div class="flex justify-between mt-10">
                             <div>
-                                <p>Real Feel</p>
+                                <p>{{ $t('feelLike') }}</p>
                                 <p class="text-2xl tracking-tighter">
                                     {{ temperature(weatherData.main.feels_like, tempUnit) }}&deg;
                                 </p>
@@ -63,51 +61,51 @@
                         rounded-lg w-full sm:w-1/2 dark:border-dark-700 dark:shadow-dark-md">
                         <div class="flex justify-between mb-3">
                             <div>
-                                <p class="text-gray-400 text-xs">Pressure</p>
+                                <p class="text-gray-400 text-xs">{{ $t('pressure') }}</p>
                                 <p>{{ weatherData.main.pressure }} hPa</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-gray-400 text-xs">Wind Speed</p>
+                                <p class="text-gray-400 text-xs">{{ $t('windSpeed') }}</p>
                                 <p>{{ kmph(weatherData.wind.speed) }}</p>
                             </div>
                         </div>
                         <div class="flex justify-between mb-3">
                             <div>
-                                <p class="text-gray-400 text-xs">Humidity</p>
+                                <p class="text-gray-400 text-xs">{{ $t('humidity') }}</p>
                                 <p>{{ weatherData.main.humidity }}%</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-gray-400 text-xs">Cloudiness</p>
+                                <p class="text-gray-400 text-xs">{{ $t('cloudiness') }}</p>
                                 <p>{{ weatherData.clouds.all }}%</p>
                             </div>
                         </div>
                         <div class="flex justify-between mb-3">
                             <div>
-                                <p class="text-gray-400 text-xs">Visibility</p>
+                                <p class="text-gray-400 text-xs">{{ $t('visibility') }}</p>
                                 <p>{{ mtokm(weatherData.visibility) }}</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-gray-400 text-xs">Timezone</p>
+                                <p class="text-gray-400 text-xs">{{ $t('timezone') }}</p>
                                 <p>{{ timezone(weatherData.timezone) }}</p>
                             </div>
                         </div>
                         <div class="flex justify-between mb-3">
                             <div>
-                                <p class="text-gray-400 text-xs">Sunrise</p>
+                                <p class="text-gray-400 text-xs">{{ $t('sunrise') }}</p>
                                 <p>{{ time(weatherData.sys.sunrise, weatherData.timezone) }}</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-gray-400 text-xs">Sunset</p>
+                                <p class="text-gray-400 text-xs">{{ $t('sunset') }}</p>
                                 <p>{{ time(weatherData.sys.sunset, weatherData.timezone) }}</p>
                             </div>
                         </div>
                         <div class="flex justify-between">
                             <div>
-                                <p class="text-gray-400 text-xs">Latitude</p>
+                                <p class="text-gray-400 text-xs">{{ $t('latitude') }}</p>
                                 <p>{{ weatherData.coord.lat }}</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-gray-400 text-xs">Longitude</p>
+                                <p class="text-gray-400 text-xs">{{ $t('longitude') }}</p>
                                 <p>{{ weatherData.coord.lon }}</p>
                             </div>
                         </div>
@@ -139,11 +137,13 @@ export default {
             weatherData: null,
             errorData: null,
             objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
+            language: 'en',
         };
     },
     created() {
         this.getLocation();
         this.getTempUnit();
+        this.getLanguage();
     },
     methods: {
         async getLocation() {
@@ -153,6 +153,10 @@ export default {
             }
             this.isOnline();
             this.getData();
+        },
+        async getLanguage() {
+            const idbLocation = await Database.getData(this.objectStoreSetting, 'language');
+            this.language = idbLocation.value;
         },
         isOnline() {
             window.addEventListener('online', () => {
@@ -178,7 +182,7 @@ export default {
                         if (data.cod === '404') {
                             this.errorData = {
                                 cod: 404,
-                                message: `Sorry, we can't found city with keyword "${this.keyword}" , please try another keywords.`,
+                                message: `${this.$t('keywordNotFoud1')} "${this.keyword}", ${this.$t('keywordNotFoud2')}`,
                             };
                         } else {
                             this.errorData = data;

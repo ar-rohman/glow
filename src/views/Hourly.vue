@@ -3,10 +3,10 @@
         <div v-if="hourlyData.length !== 0">
             <div class="mb-4">
                 <p class="text-lg font-bold">
-                    Hourly weather forecast for {{ city | titleCase }}
+                    {{ $t('hourlyPageTitle') }} {{ city | titleCase }}
                 </p>
                 <p class="text-xs">
-                    Last updated {{ timeFromNow(timestamp) }}
+                    {{ $t('lastUpdated') }} {{ timeFromNow(timestamp, language) }}
                 </p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -35,35 +35,35 @@
                         </div>
                         <div class="grid grid-cols-auto-fill gap-4 pt-4">
                             <div>
-                                <p class="text-xs text-gray-400">Real Feel</p>
+                                <p class="text-xs text-gray-400">{{ $t('feelLike') }}</p>
                                 <p>{{ temperature(hourly.feels_like, tempUnit) }}&deg;</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Pressure</p>
+                                <p class="text-xs text-gray-400">{{ $t('pressure') }}</p>
                                 <p>{{ hourly.pressure }} hPa</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Humidity</p>
+                                <p class="text-xs text-gray-400">{{ $t('humidity') }}</p>
                                 <p>{{ hourly.humidity }}%</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Cloudiness</p>
+                                <p class="text-xs text-gray-400">{{ $t('cloudiness') }}</p>
                                 <p>{{ hourly.clouds }}%</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Visibility</p>
+                                <p class="text-xs text-gray-400">{{ $t('visibility') }}</p>
                                 <p>{{ mtokm(hourly.visibility) }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">UV Index</p>
+                                <p class="text-xs text-gray-400">{{ $t('uvIndex') }}</p>
                                 <p>{{ hourly.uvi.toFixed() }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Wind Speed</p>
+                                <p class="text-xs text-gray-400">{{ $t('windSpeed') }}</p>
                                 <p>{{ kmph(hourly.wind_speed) }}</p>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Dew Point</p>
+                                <p class="text-xs text-gray-400">{{ $t('dewPoint') }}</p>
                                 <p>{{ temperature(hourly.dew_point, tempUnit) }}&deg;</p>
                             </div>
                         </div>
@@ -94,14 +94,16 @@ export default {
             errorData: null,
             tempUnit: 'celsius',
             objectStoreSetting: process.env.VUE_APP_OBJECT_STORE_SETTING,
+            language: 'en',
         };
     },
     created() {
         this.getTempUnit();
+        this.getLanguage();
         if (this.hourlyData.length === 0) {
             this.errorData = {
                 cod: 404,
-                message: 'Sorry, the page you requested could not be found.',
+                message: this.$t('pageNotFound'),
             };
         }
     },
@@ -119,6 +121,10 @@ export default {
             if (idbTemp) {
                 this.tempUnit = idbTemp.value;
             }
+        },
+        async getLanguage() {
+            const idbLocation = await Database.getData(this.objectStoreSetting, 'language');
+            this.language = idbLocation.value;
         },
     },
 };
